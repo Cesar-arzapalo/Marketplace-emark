@@ -1,0 +1,30 @@
+.mat-table {
+  width: 100%;
+  background-color: white;
+  border-radius: 12px;
+  overflow:hidden !important;
+}
+
+.mat-header-cell{
+  color:white;
+  margin-bottom : 4rem;
+  font-family      : 'Poppins-Regular', sans-serif;
+  font-size        : 0.875rem;
+  border-bottom: 1.5px solid black;
+  background: gray;
+  align-self: stretch;
+  text-align: center
+}
+
+.mat-cell{
+  color:black;
+  font-family      : 'Poppins-Regular', sans-serif;
+  font-size        : 0.875rem;
+  border-left: 1.5px solid black;
+  border-right: 1.5px solid black;
+  border-top: 3px solid black;
+  border-bottom: 1.5px solid black;
+  align-self: stretch;
+  text-align: center
+}
+
