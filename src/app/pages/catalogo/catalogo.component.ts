@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProdutosService } from 'src/app/services/produtos.service';
-import { COLUMN_DATA, ELEMENT_DATA } from 'src/app/utils';
+//import { COLUMN_DATA, ELEMENT_DATA } from 'src/app/utils';
 
 @Component({
   selector: 'app-catalogo',
@@ -16,8 +16,9 @@ export class CatalogoComponent implements OnInit {
   productoForm: FormGroup;
 
   constructor(private productoService:ProdutosService, private fb:FormBuilder ) { 
-    this.thead=COLUMN_DATA;
-
+    this.thead=['nombre'];
+    this.data=this.obtenerProductos();
+    
     this.productoForm= this.fb.group({
       nombre:[''],
       descripcion:[''],
@@ -34,7 +35,6 @@ export class CatalogoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.obtenerProductos();
   }
 
   agregarProducto(){
@@ -82,21 +82,18 @@ export class CatalogoComponent implements OnInit {
   }
 
   obtenerProductos(){
-    this.data=ELEMENT_DATA;
-    
-    /* this.productoService..subscribe(data => {
-      this.data=data;
-    }, error => {
+    //this.data=ELEMENT_DATA;
+    this.productoService.getProductos().subscribe(data => this.data=data.mensaje["0"], error => {
       console.log(error);
-    } ) */
+    } )
   }
 
   eliminarProducto(id:any){
-    /* this.productoService.(id).subscribe( data => {
+    this.productoService.eliminarProducto(id).subscribe( data => {
       this.obtenerProductos();
     }, error => {
       console.log(error);
-    } ) */
+    } )
 
     console.log("elimino Cata gaa",id);
   }
