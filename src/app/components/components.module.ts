@@ -11,8 +11,8 @@ import { MaterialModule } from '../material/material.module';
   declarations: [TablaComponent,ProductoComponent,DetalleProductoComponent],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
   ],
-  exports:[TablaComponent]
+  exports:[TablaComponent,ProductoComponent]
 })
 export class ComponentsModule { }
