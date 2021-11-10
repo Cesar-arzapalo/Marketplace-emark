@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {COLUMN_DATA, ELEMENT_DATA} from '../../utils';
 import { MatTableDataSource } from '@angular/material/table';
 @Component({
@@ -9,6 +9,10 @@ import { MatTableDataSource } from '@angular/material/table';
 export class TablaComponent implements OnInit {
   @Input() val:string[]=[];
   @Input() datos:any;
+  @Output() onEliminar = new EventEmitter<any>();
+  @Output() onEditar = new EventEmitter<any>();
+  @Output() onVer = new EventEmitter<any>();
+
   displayedColumns: string[] = [];
   dataSource:any;
   nuevo:any;
@@ -25,17 +29,19 @@ export class TablaComponent implements OnInit {
     }
   }
   ver(element:any){
-    console.log('Viendo', element['Id'])
+    console.log('Viendo', element['Id']);
+    this.onVer.emit(element['Id']);
   }
   editar(element:any){
-    console.log('Editando', element['Id'])
+    console.log('Editando', element['Id']);
+    this.onEditar.emit(element['Id']);
   }
   eliminar(element:any){
     //Se está recibiendo todo el array de columna, asi que no se olvide los campos
     //Tener en cuenta que se retorna el elemento completo del datasource
     //Ejemplo = console.log(element['Contenido1'])
     console.log('Eliminando', element['Id']);
-
+    this.onEliminar.emit( element['Id'] );
   }
 
 }

@@ -1,1 +1,83 @@
-<p>catalogo works!</p>
+
+
+    <h1 class="title">Productos</h1>
+    <div class="form">
+        <form [formGroup]="productoForm" (ngSubmit)="agregarProducto()" >
+            <div class="row">
+                <mat-form-field >
+                    <mat-label>Nombre</mat-label>
+                    <input matInput type="text" formControlName="nombre">
+                </mat-form-field>
+            
+                <mat-form-field >
+                    <mat-label>Descripcion</mat-label>
+                    <input matInput type="text" formControlName="descripcion"> 
+                </mat-form-field>
+                
+                <mat-form-field >
+                    <mat-label>Caracteristicas</mat-label>
+                    <input matInput type="text" formControlName="caracteristicas">
+                </mat-form-field>
+            </div>
+            <div class="row">
+            
+                <mat-form-field >
+                    <mat-label>Unidad</mat-label>
+                    <input matInput type="text" formControlName="unidad">
+                </mat-form-field>
+                
+                <mat-form-field >
+                    <mat-label>Precio Unidad</mat-label>
+                    <input matInput type="number" formControlName="precioUnidad">
+                </mat-form-field>
+            
+                <mat-form-field>
+                    <mat-label>Stock</mat-label>
+                    <input matInput type="number" formControlName="stock">  
+                </mat-form-field>
+            </div>
+
+        
+            <div class="row">
+                <mat-form-field>
+                    <mat-label>Valoracion</mat-label>
+                    <input matInput type="number" formControlName="valoracion">  
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Visitas</mat-label>
+                    <input matInput type="number" formControlName="visitas">  
+                </mat-form-field>
+    
+                <mat-form-field>
+                    <mat-label>ID Categoria</mat-label>
+                    <input matInput type="text" formControlName="idCategoria">  
+                </mat-form-field>
+            </div>
+        
+            <div class="row">
+            
+                <mat-form-field>
+                    <mat-label>ID Proveedor</mat-label>
+                    <input matInput type="text" formControlName="idProveedor">  
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Url Imagen</mat-label>
+                    <input matInput type="text" formControlName="imagenes">  
+                </mat-form-field>
+    
+            </div>
+            
+            <div class="row btns">
+                <button class="btn" *ngIf="ver" color="basic" mat-button (click)="vaciar()" >Dejar de Ver</button>
+
+                <button class="btn" color="basic" mat-button type="submit">Guardar Producto</button>
+            </div>
+        </form>
+    
+    
+    </div>
+    
+    
+    <app-tabla class="table" [val]="thead" [datos]="data" (onEliminar)="eliminarProducto($event)" (onEditar)="editarProducto($event)" (onVer)="verProducto($event)" ></app-tabla>
+
+

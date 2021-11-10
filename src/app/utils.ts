@@ -6,4 +6,4 @@ export const  ELEMENT_DATA= [
   {Id:4, Titulo1: '' , Contenido1: ''},
 ];
 
-export const COLUMN_DATA=['Id','Titulo1', 'Contenido1'];
+export const COLUMN_DATA=['Id','Nombre', 'Descripcion'];
