@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import {COLUMN_DATA, ELEMENT_DATA, Producto} from '../../utils';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {COLUMN_DATA, ELEMENT_DATA, ProductoQuery} from '../../utils';
 import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-tabla',
@@ -8,10 +8,14 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class TablaComponent implements OnInit {
   @Input() val:string[]=[];
-  @Input() datos:any;
+  @Input() datos:any[] =[];
+  @Output() onEliminar = new EventEmitter<any>();
+  @Output() onEditar = new EventEmitter<any>();
+  @Output() onVer = new EventEmitter<any>();
+
   displayedColumns: string[] = [];
   data:any=[];
-  dataSource = new MatTableDataSource<Producto>(this.data);
+  dataSource = new MatTableDataSource<ProductoQuery>(this.data);
   acciones=['Ver','Editar','Eliminar'];
   constructor() { }
 
@@ -23,22 +27,19 @@ export class TablaComponent implements OnInit {
       this.displayedColumns=COLUMN_DATA.concat(this.acciones);
       this.data=ELEMENT_DATA;
     }
-    this.dataSource = new MatTableDataSource<Producto>(this.data);
+    this.dataSource = new MatTableDataSource<ProductoQuery>(this.data);
   }
   ver(element:any){
-    console.log('Viendo', element['Id'])
   }
   editar(element:any){
-    console.log('Editando', element['Id'])
   }
   eliminar(element:any){
     //Se está recibiendo todo el array de columna, asi que no se olvide los campos
     //Tener en cuenta que se retorna el elemento completo del datasource
     //Ejemplo = console.log(element['Contenido1'])
-    this.data.splice(element['Id'],1)
-    this.dataSource = new MatTableDataSource<Producto>(this.data);
-    console.log('Eliminando', element['Id']);
-
+    this.data.splice(element['nombre'],1)
+    this.dataSource = new MatTableDataSource<ProductoQuery>(this.data);
+    console.log('Eliminando', element['nombre']);
   }
 
 }

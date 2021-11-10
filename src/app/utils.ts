@@ -10,4 +10,17 @@ export interface Producto {
   Titulo1: string;
   Contenido1: string;
 }
+export interface ProductoQuery {
+  nombre?: String;
+  descripcion?: String;
+  caracteristicas?: Array<Object>;
+  unidad?: String;
+  precioUnidad?: Number;
+  stock?: Number;
+  valoracion?: Number;
+  visitas?: Number;
+  idCategoria?: String;
+  idProveedor?: String;
+  imagenes?: Array<String>;
+};
 export const COLUMN_DATA=['Id','Titulo1', 'Contenido1'];
