@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProdutosService } from 'src/app/services/produtos.service';
 //import { COLUMN_DATA, ELEMENT_DATA } from 'src/app/utils';
+import { ProductoModel } from '../../Models/producto.model';
 
 @Component({
   selector: 'app-catalogo',
@@ -11,13 +12,14 @@ import { ProdutosService } from 'src/app/services/produtos.service';
 export class CatalogoComponent implements OnInit {
 
   thead:string[]=[];
-  data:any=[];
+  data:any[]=[];
   ver:boolean=false;
   productoForm: FormGroup;
+  dataRecibida: boolean = false;
 
   constructor(private productoService:ProdutosService, private fb:FormBuilder ) { 
     this.thead=['nombre'];
-    this.data=this.obtenerProductos();
+    this.obtenerProductos();
     
     this.productoForm= this.fb.group({
       nombre:[''],
@@ -81,11 +83,14 @@ export class CatalogoComponent implements OnInit {
     })
   }
 
-  obtenerProductos(){
-    //this.data=ELEMENT_DATA;
-    this.productoService.getProductos().subscribe(data => this.data=data.mensaje["0"], error => {
-      console.log(error);
-    } )
+  obtenerProductos(): any {
+    return this.productoService.getProductos().subscribe((resp: any) => {
+      this.data = resp.mensaje;
+      console.log(resp);
+      this.dataRecibida=true;
+      
+    });
+    ;
   }
 
   eliminarProducto(id:any){

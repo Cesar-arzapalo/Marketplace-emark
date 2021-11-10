@@ -78,6 +78,6 @@
     </div>
     
     
-    <app-tabla class="table" [val]="thead" [datos]="data" (onEliminar)="eliminarProducto($event)" (onEditar)="editarProducto($event)" (onVer)="verProducto($event)" ></app-tabla>
+    <app-tabla  *ngIf="dataRecibida" class="table" [val]="thead" [datos]="data" (onEliminar)="eliminarProducto($event)" (onEditar)="editarProducto($event)" (onVer)="verProducto($event)" ></app-tabla>
 
 

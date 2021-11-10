@@ -19,7 +19,6 @@ export class ProductoComponent {
   
 
   getproductos() {
-    return this._productoService.getProductos().subscribe(r => console.log(r));
   }
 
 

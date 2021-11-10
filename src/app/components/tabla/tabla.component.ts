@@ -8,13 +8,13 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class TablaComponent implements OnInit {
   @Input() val:string[]=[];
-  @Input() datos:any;
+  @Input() datos:any[] =[];
   @Output() onEliminar = new EventEmitter<any>();
   @Output() onEditar = new EventEmitter<any>();
   @Output() onVer = new EventEmitter<any>();
 
   displayedColumns: string[] = [];
-  dataSource:any;
+  dataSource:any[] = [];
   nuevo:any;
   acciones=['Ver','Editar','Eliminar'];
   constructor() { }
@@ -23,6 +23,7 @@ export class TablaComponent implements OnInit {
     if(this.val.length>0){
       this.displayedColumns=this.val.concat(this.acciones);
       this.dataSource=this.datos;
+       console.log(2,this.dataSource)
     }else{
       this.displayedColumns=COLUMN_DATA.concat(this.acciones);
       this.dataSource=ELEMENT_DATA;
