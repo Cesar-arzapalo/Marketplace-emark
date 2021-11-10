@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { CatalogoRoutingModule } from './catalogo-routing.module';
 import { CatalogoComponent } from './catalogo.component';
 import { ComponentsModule } from '../../components/components.module';
+import { MaterialModule } from 'src/app/material/material.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import { ComponentsModule } from '../../components/components.module';
   imports: [
     CommonModule,
     CatalogoRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    MaterialModule,
+    ReactiveFormsModule
   ]
 })
 export class CatalogoModule { }

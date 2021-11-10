@@ -1,0 +1,23 @@
+mat-form-field{
+    margin: 20px;
+}
+
+.form{
+    display: flex;
+    justify-content: center;
+}
+
+.title{
+    text-align: center;
+    font-size: 40px;
+    margin-top: 20px;
+}
+.btns{
+    display: flex;
+    justify-content:space-around ;
+    margin-bottom: 20px;
+}
+.btn{
+    border: 10px;
+    background: rgb(189, 185, 185);
+}

@@ -17,11 +17,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 	],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
   ],
-  exports:[
-		TablaComponent,
-		NavbarComponent
-	]
+  exports:[TablaComponent,ProductoComponent, NavbarComponent]
 })
 export class ComponentsModule { }
