@@ -1,0 +1,44 @@
+<form [formGroup]="accountForm">
+
+    <div class="login-form">
+        <h3 class="login-title">Perfil</h3>
+
+        <div class="row" *ngIf="auth.user$ | async as user">
+            <div class="col-md-6 col-12 mb--20">
+                <label>Nombre</label>
+                <input [value]="user.given_name" type="text">
+                <!-- <input [value]="user.given_name" type="text" formControlName="nombre"> -->
+            </div>
+            <div class="col-md-6 col-12 mb--20">
+                <label>Apellidos</label>
+                <input [value]="user.family_name" type="text">
+            </div>
+            <div class="col-md-6 col-12 mb--20">
+                <label>Fecha nacimiento</label>
+                <input type="date" formControlName="fecha_nacimiento">
+            </div>
+            <div class="col-md-6 col-12 mb--20">
+                <label>Correo*</label>
+                <input [value]="user.email" type="email">
+            </div>
+            <div class="col-md-6 col-12 mb--20">
+                <label>Tipo de documento</label>
+                <input type="text" formControlName="tipo_documento">
+            </div>
+            <div class="col-md-6 col-12 mb--20">
+                <label>telefono</label>
+                <input type="text" formControlName="telefono">
+            </div>
+            <div class="col-md-6 col-12 mb--20">
+                <label>Numero de documento</label>
+                <input type="text" formControlName="documento">
+            </div>
+
+        </div>
+        <div class="row ml-2">
+            <button type="button" class="btn btn-danger" style="margin-top: 10px; width: 150px !important;margin-left: 12px !important;">Actualizar datos</button>
+
+        </div>
+    </div>
+
+</form>

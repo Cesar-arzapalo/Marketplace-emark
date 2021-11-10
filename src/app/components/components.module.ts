@@ -4,15 +4,21 @@ import { TablaComponent } from './tabla/tabla.component';
 import { ProductoComponent } from './producto/producto.component';
 import { DetalleProductoComponent } from './detalle-producto/detalle-producto.component';
 import { MaterialModule } from '../material/material.module';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 
 @NgModule({
-  declarations: [TablaComponent,ProductoComponent,DetalleProductoComponent],
+  declarations: [
+		TablaComponent,
+		ProductoComponent,
+		DetalleProductoComponent, 
+		NavbarComponent
+	],
   imports: [
     CommonModule,
     MaterialModule,
   ],
-  exports:[TablaComponent,ProductoComponent]
+  exports:[TablaComponent,ProductoComponent, NavbarComponent]
 })
 export class ComponentsModule { }
