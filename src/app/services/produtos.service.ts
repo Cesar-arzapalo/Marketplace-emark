@@ -1,16 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Producto } from '../components/producto/interfaces/producto.interfaces';
-import { ProductoModel } from '../Models/producto.model';
-import { map } from 'rxjs/operators';
+import { Producto } from '../interfaces/producto.interfaces';
+// import { ProductoModel } from '../Models/producto.model';
+// import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 
 
-export class ProdutosService {
+export class ProductoService {
   url='https://emark-backend-nodejs.herokuapp.com/producto';
   
   
@@ -23,7 +23,7 @@ export class ProdutosService {
 
 
   eliminarProducto(id: string) : Observable<any>{
-    return this.http.delete(this.url + id);
+    return this.http.delete(`${this.url}?id=${id}`);
   }
 
   guardarProducto(producto: Producto): Observable<any> {

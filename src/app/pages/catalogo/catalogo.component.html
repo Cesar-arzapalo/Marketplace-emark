@@ -1,83 +1,41 @@
-
-
-    <h1 class="title">Productos</h1>
-    <div class="form">
-        <form [formGroup]="productoForm" (ngSubmit)="agregarProducto()" >
-            <div class="row">
-                <mat-form-field >
-                    <mat-label>Nombre</mat-label>
-                    <input matInput type="text" formControlName="nombre">
-                </mat-form-field>
-            
-                <mat-form-field >
-                    <mat-label>Descripcion</mat-label>
-                    <input matInput type="text" formControlName="descripcion"> 
-                </mat-form-field>
-                
-                <mat-form-field >
-                    <mat-label>Caracteristicas</mat-label>
-                    <input matInput type="text" formControlName="caracteristicas">
-                </mat-form-field>
+<div class="catalogo row">
+    <div *ngIf="filtradoTerminado"class="col-md-3">
+        <div class="catalogo-lista">
+            <div class="categoria-actual centrado bordes-bajo">
+                Categoria: {{categoriaActual.nombre}}
             </div>
-            <div class="row">
-            
-                <mat-form-field >
-                    <mat-label>Unidad</mat-label>
-                    <input matInput type="text" formControlName="unidad">
-                </mat-form-field>
-                
-                <mat-form-field >
-                    <mat-label>Precio Unidad</mat-label>
-                    <input matInput type="number" formControlName="precioUnidad">
-                </mat-form-field>
-            
-                <mat-form-field>
-                    <mat-label>Stock</mat-label>
-                    <input matInput type="number" formControlName="stock">  
-                </mat-form-field>
+            <div *ngFor="let categoria of categoriasHijas" class="categorias">
+                <div class="categoria">{{categoria.nombre}}</div>
             </div>
-
-        
-            <div class="row">
-                <mat-form-field>
-                    <mat-label>Valoracion</mat-label>
-                    <input matInput type="number" formControlName="valoracion">  
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Visitas</mat-label>
-                    <input matInput type="number" formControlName="visitas">  
-                </mat-form-field>
-    
-                <mat-form-field>
-                    <mat-label>ID Categoria</mat-label>
-                    <input matInput type="text" formControlName="idCategoria">  
-                </mat-form-field>
+            <div *ngFor="let opcion of opciones" class="categorias bordes-bajo">
+                <div  class="categoria-opcion row">
+                    <div class="col-md-10 centrado-verticalmente ">
+                        {{opcion}} 
+                    </div>
+                    <div class="col-md-2 centrado-verticalmente ">
+                        <i class="fas fa-angle-right"></i>
+                    </div>
+                    
+                </div>
             </div>
-        
-            <div class="row">
-            
-                <mat-form-field>
-                    <mat-label>ID Proveedor</mat-label>
-                    <input matInput type="text" formControlName="idProveedor">  
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Url Imagen</mat-label>
-                    <input matInput type="text" formControlName="imagenes">  
-                </mat-form-field>
-    
-            </div>
-            
-            <div class="row btns">
-                <button class="btn" *ngIf="ver" color="basic" mat-button (click)="vaciar()" >Dejar de Ver</button>
-
-                <button class="btn" color="basic" mat-button type="submit">Guardar Producto</button>
-            </div>
-        </form>
-    
-    
+        </div>
     </div>
-    
-    
-    <app-tabla  *ngIf="dataRecibida" class="table" [val]="thead" [datos]="data" (onEliminar)="eliminarProducto($event)" (onEditar)="editarProducto($event)" (onVer)="verProducto($event)" ></app-tabla>
-
-
+    <div class="col categoria-vista">
+        <div class="catalogo-opciones row">
+            <div class="col-md-4 centrado-verticalmente ">
+                {{categoriaActual.nombre}}: {{productos.length}} producto{{(productos.length>1)?"s":""}}
+            </div>
+            <div class="col-md-4 centrado-verticalmente borde-izquierdo">
+                Ordenado por: 
+            </div>
+            <div class="col-md-4 centrado-verticalmente borde-izquierdo borde-derecho-redondeados">
+                Vista por:
+            </div>
+        </div>
+        <div class="lista-productos">
+            <div *ngFor="let p of productos">
+                <app-producto [producto]="p" (emitirProductoSolicitado)="agregarProductoSoilicitado($event)"></app-producto>
+            </div>
+        </div>
+    </div>
+</div>

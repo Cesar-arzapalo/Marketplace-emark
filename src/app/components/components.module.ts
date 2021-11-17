@@ -5,6 +5,8 @@ import { ProductoComponent } from './producto/producto.component';
 import { DetalleProductoComponent } from './detalle-producto/detalle-producto.component';
 import { MaterialModule } from '../material/material.module';
 import { NavbarComponent } from './navbar/navbar.component';
+import { PipesModule } from '../pipes/pipes.module';
+import {RouterModule} from '@angular/router';
 
 
 
@@ -18,6 +20,8 @@ import { NavbarComponent } from './navbar/navbar.component';
   imports: [
     CommonModule,
     MaterialModule,
+    PipesModule,
+    RouterModule
   ],
   exports:[TablaComponent,ProductoComponent, NavbarComponent]
 })

@@ -10,8 +10,7 @@ import { AuthModule } from '@auth0/auth0-angular';
 import { ComponentsModule } from './components/components.module';
 @NgModule({
   declarations: [
-    AppComponent,
-
+    AppComponent
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,32 @@
-<h1>producto</h1>
+<div class="producto">
+    <button class="btn btn-outline-dark float-end" [routerLink]="['/producto',producto.id]" title="Ver detalles del producto">
+        <i class="fas fa-angle-double-right"></i>
+    </button>
+    <div class="producto-imagen centrado" >
+        <img class ="imagen" src="{{producto.imagenes[0]}}" alt="">
+    </div>
+    <div class="producto-nombre">
+        {{producto.nombre  }} 
+    </div>
+    <div class="producto-precio">
+        Online S/{{producto.precioUnidad | number : '1.2-2'}}
+    </div>
+    <div *ngIf="producto.stock>0" class="producto-opciones row ">
+        <div class="col-md-3 ">
+            <div class="cantidad centrado">
+                {{cantidad}}
+            </div>
+        </div>
+        <div class="opciones-cantidad centrado col-md-2">
+            <a class="operador centrado" (click)="aumentar()"><i class="fas fa-plus"></i></a>
+            <a class="operador centrado" (click)="disminuir()"><i class="fas fa-minus"></i></a>
+        </div>
+        <div class="col-md-7">
+            <a class="producto-agregar centrado" (click)="agregar()">Agregar</a>
+        </div>
+    </div>
+    <div *ngIf="producto!.stock==0" class="opciones-detalle Centrado agotado">
+        <h5>No hay stock disponible del producto por el momento</h5>
+    </div>
+
+</div>
