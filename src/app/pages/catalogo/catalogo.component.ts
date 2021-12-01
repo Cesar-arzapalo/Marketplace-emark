@@ -3,7 +3,7 @@ import { Categoria } from 'src/app/models/categoria.model';
 import { ProductoService } from '../../services/produtos.service';
 import { Producto } from '../../models/producto.model';
 import { ProductoSolicitado } from '../../models/pedido.model';
-import { CarroCompartidoService, responseProducto } from '../../services/carro.service';
+import { CarroCompartidoService} from '../../services/carro.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -34,9 +34,11 @@ export class CatalogoComponent implements OnInit {
   }
 
   obtenerProductos(){
-    this.productosServices.getProductos().subscribe( (result: responseProducto) =>{
-      var productos: Producto[]=result.mensaje;
+    this.productosServices.obtenerProductos().subscribe( (result: Producto[]) =>{
+      console.log(result);
+      var productos: Producto[]=result;
       this.productos=productos;
+      console.log(this.productos)
     })
   }
 

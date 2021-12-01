@@ -2,7 +2,7 @@
 	<nav class="navbar-emark">
 			<div class="row navbar-container ">
 					<div class="col-md-2 navbar-section">
-							<a class="navbar-brand" href="/">
+							<a class="navbar-brand" routerLink="[/catalogo]">
 									<i class="fas fa-store"></i> EMARK
 							</a>
 					</div>
@@ -14,10 +14,12 @@
 							</div>
 							<!-- Modal -->
 					</div>
-					<div class="col-md-2 navbar-section navbar-cuenta">
-							<!-- <img class="navbar-icon-user" src="../../../assets/img/user.svg"/>   Mi cuenta -->
+					<div class="col-md-1 navbar-section navbar-cuenta">
 							<div class="dropdown">
-									<a class=" dropdown-toggle" style="text-decoration: none !important; color: black;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="true"><i class="fa fa-user"></i>
+									<a class=" dropdown-toggle" style="text-decoration: none !important; color: black;" 
+									type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" 
+									aria-expanded="true">
+									<i class="fa fa-user"></i>
 										Mi cuenta
 									</a>
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -26,6 +28,9 @@
 											<li *ngIf="(auth.isAuthenticated$ | async)"><a (click)="auth.logout()" class="dropdown-item">Cerrar Sesion</a></li>
 									</ul>
 							</div>
+					</div>
+					<div class="col-md-1 navbar-section navbar-carro">
+							<app-carro></app-carro>
 					</div>
 			</div>
 	</nav>

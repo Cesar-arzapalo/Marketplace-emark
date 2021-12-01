@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Pedido } from '../models/pedido.model';
-import { Producto } from '../models/producto.model';
-
-export interface responseProducto{
-    ok: boolean;
-    mensaje: Producto[];
-}
 
 @Injectable({
   providedIn: 'root'

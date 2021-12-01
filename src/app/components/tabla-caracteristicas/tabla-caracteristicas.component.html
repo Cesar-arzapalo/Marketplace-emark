@@ -1,0 +1,13 @@
+<div class="caracteristicas">
+    <div class="titulo-caracteristicas">
+        <h2>Especificaciones:</h2>
+    </div>
+    <div *ngFor= "let campo of campos" class="caracteristica row mt-1 md-1">
+        <div class="col-md-4 nombre-caracteristica">
+            <h3>{{campo}}: </h3>
+        </div>
+        <div class="col-md-8 descripcion-cartacteristica" >
+            <h3>{{caracteristicas[campo]}}</h3>
+        </div>
+    </div>
+</div>

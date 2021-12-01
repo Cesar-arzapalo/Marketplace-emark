@@ -31,16 +31,24 @@ export class ProductoComponent implements OnInit {
   };
 
   public agregar = () => {
-    console.log("Producto " + this.producto.nombre + " agregado")
     let registro = true;
-    CarroCompartidoService.getCarro().productos.map( p => {if ( p.producto.id == this.producto!.id) registro = false})
-    this.emitirProductoSolicitado.emit(new ProductoSolicitado(this.producto, this.cantidad))
+    CarroCompartidoService.getCarro().productos=CarroCompartidoService.getCarro().productos.map( p => {
+      if (p.producto.id == this.producto!.id){
+        p.cantidad+=this.cantidad;
+        registro = false;
+      }
+      return p;
+    })
+    if(registro){
+      CarroCompartidoService.getCarro().productos.push(new ProductoSolicitado(this.producto!,this.cantidad))
+    }
+    CarroCompartidoService.actualizarMonto();
     this.cantidad = 1;
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',
       showConfirmButton: false,
-      timer: 1800,
+      timer: 1200,
       timerProgressBar: true,
       didOpen: (toast) => {
         toast.addEventListener('mouseenter', Swal.stopTimer)

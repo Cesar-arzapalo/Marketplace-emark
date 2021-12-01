@@ -10,6 +10,9 @@ import { MaxLengthStringPipe } from './max-length-string.pipe';
   ],
   imports: [
     CommonModule
+  ],
+  exports:[
+    MaxLengthStringPipe
   ]
 })
 export class PipesModule { }

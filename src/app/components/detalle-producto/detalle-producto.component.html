@@ -1,1 +1,57 @@
-<p>detalle-producto works!</p>
+<div *ngIf = "productoCargado" class="detalle-producto row">
+    <div class="iamgenes-detalle col-md-2">
+        <a class="imagen centrado" [ngClass]="{'producto-seleccionado':(idx+1)===idProductoSeleccionado}" *ngFor="let idImagen of producto!.imagenes; let idx = index" (click)="actualizarImagenSeleccionada(idx+1)">
+            <img class="imagen-secundaria" [src]="idImagen" >
+        </a>
+    </div>
+    <div class="imagen-princicpal-detalle centrado col-md-7">
+        <img class="imagen-princicpal" [src]="imagenActual">
+    </div>
+    <div class="informacion-detalle col-md-3 row g-0">
+        <div class="nombre-detalle"> 
+            <h1>{{producto!.nombre}}</h1>
+        </div>
+        <div class="caracteristicas-detalle">
+            <app-tabla-caracteristicas [caracteristicas]="producto!.caracteristica"></app-tabla-caracteristicas> 
+        </div>
+        <div class="precio-detalle">
+            <h3>Precio: S/{{producto!.precioUnidad | number: '1.2-2'}}</h3>
+        </div>
+        <div class="stock-detalle">
+            <h3>Stock: {{producto!.stock | number: '1.0'}} unid.</h3>
+        </div>
+        <div class="valoracion-detalle">
+            <h3>Valoracion: {{producto!.valoracion | number: '1.1-1'}}</h3>
+        </div>
+        <div class="visitas-detalle">
+            <h3>Visitas: {{producto!.visitas | number: '1.0'}} </h3>
+        </div>
+        <div *ngIf="producto!.stock>0" class="opciones-detalle row">
+            <div class="col-md-3 ">
+                <div class="cantidad centrado">
+                    {{cantidad}}
+                </div>
+            </div>
+            <div class="opciones-cantidad centrado col-md-2">
+                <a class="operador centrado" (click)="aumentar()"><i class="fas fa-plus"></i></a>
+                <a class="operador centrado" (click)="disminuir()"><i class="fas fa-minus"></i></a>
+            </div>
+            <div class="col-md-7">
+                <a class="producto-agregar centrado" (click)="agregar()">Agregar</a>
+            </div>
+        </div>
+        <div *ngIf="producto!.stock==0" class="opciones-detalle Centrado agotado">
+            <h4>No hay stock disponible del producto por el momento</h4>
+        </div>
+
+    </div>
+</div>
+<div class="comentario" >
+    <div class="comentario-head" fxLayout="row"  fxLayoutAlign="space-between center" >
+        <div class="comentario-titulo"> Comentarios </div>
+        <div class="comentario-cantidad"> # comentarios publicados </div>
+    </div>
+    <div class="comentario-body">
+
+    </div>
+</div>

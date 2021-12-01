@@ -7,6 +7,12 @@ import { MaterialModule } from '../material/material.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PipesModule } from '../pipes/pipes.module';
 import {RouterModule} from '@angular/router';
+import { TablaCaracteristicasComponent } from './tabla-caracteristicas/tabla-caracteristicas.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ComentarioComponent } from './comentario/comentario.component';
+import { CarroComponent } from './carro/carro.component';
+import { ProductoCarroComponent } from './producto-carro/producto-carro.component';
+import { BarraComponent } from './barra/barra.component';
 
 
 
@@ -15,14 +21,20 @@ import {RouterModule} from '@angular/router';
 		TablaComponent,
 		ProductoComponent,
 		DetalleProductoComponent, 
-		NavbarComponent
+		NavbarComponent, 
+    TablaCaracteristicasComponent,
+    ComentarioComponent,
+    CarroComponent,
+    ProductoCarroComponent,
+    BarraComponent
 	],
   imports: [
     CommonModule,
     MaterialModule,
     PipesModule,
-    RouterModule
+    RouterModule,
+    FlexLayoutModule
   ],
-  exports:[TablaComponent,ProductoComponent, NavbarComponent]
+  exports:[TablaComponent,ProductoComponent, NavbarComponent, BarraComponent]
 })
 export class ComponentsModule { }

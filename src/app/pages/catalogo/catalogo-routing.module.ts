@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CatalogoComponent } from './catalogo.component';
+import { DetalleProductoComponent } from '../../components/detalle-producto/detalle-producto.component';
 
 const routes: Routes = [
   {path:"", component: CatalogoComponent},
+  {path:":id", component: DetalleProductoComponent},
 ];
 
 @NgModule({

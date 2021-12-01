@@ -1,0 +1,40 @@
+.barra{
+    height: 50px;
+    background-color: red;
+    display: flex;
+    align-content: stretch;
+}
+.barra-option{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    text-decoration: none;
+    color:#fff;
+    font-weight: bold;
+    font-size: 20px;
+    border: 1px red solid;
+}
+
+.barra-option:hover{
+    background-color:red;
+    color: #fff;
+    opacity: 0.75;
+    font-size: 24px;
+}
+
+.barra-option:active{
+    
+    background-color: #c0c0c0;
+}
+
+.opcion-no-seleccionada{
+
+    background-color: #fff;
+    color: red;
+}
+
+.opcion-seleccionada{
+
+    background-color:red;
+    color: #fff;
+}
