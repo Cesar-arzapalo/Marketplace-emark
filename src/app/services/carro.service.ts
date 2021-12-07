@@ -5,25 +5,25 @@ import { Pedido } from '../models/pedido.model';
   providedIn: 'root'
 })
 
-export class CarroCompartidoService {
-  static carro:Pedido = new Pedido(new Date(), [])
+export class CarroService {
+  static carro:Pedido = new Pedido("",new Date(), [])
   static monto: number = 0;
   constructor() {
    }
 
    static getCarro(){
-     return CarroCompartidoService.carro;
+     return CarroService.carro;
    }
 
    static getProductosCarro(){
-     return CarroCompartidoService.carro.productos;
+     return CarroService.carro.productos;
    }
    static actualizarMonto(){
-    CarroCompartidoService.monto = CarroCompartidoService.carro.getMontoTotal()
+    CarroService.monto = CarroService.carro.getMontoTotal()
    } 
 
    static getMonto(){
-    return CarroCompartidoService.monto;
+    return CarroService.monto;
   }
 
   

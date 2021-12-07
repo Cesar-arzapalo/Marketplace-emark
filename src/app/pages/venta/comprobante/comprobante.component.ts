@@ -30,12 +30,12 @@ export class ComprobanteComponent implements OnInit {
   }
     
   generarPedido(id:string){
-    this.pedidoService.obtenerPedido(id).subscribe(pedidoDB  =>{
-      this.pedido = new Pedido(pedidoDB.fechaEmision, pedidoDB.productoReferencia)
+    this.pedidoService.obtenerPedido(id).subscribe(resp  =>{
+      this.pedido = new Pedido(resp.usuario, resp.fechaEmision, resp.productoReferencia)
       
       this.pedidoCargado=true;
       this.auth.user$.subscribe(perfil =>{
-        this.mensaje= new Mensaje(pedidoDB.data()!.usuario,(perfil)?(perfil?.email!):"","Gracias por Comprar en EMARK - Comprobante Electronico",`https://e-mark.herokuapp.com${this.router.url}`)
+        this.mensaje= new Mensaje(this.pedido.usuario,(perfil)?(perfil?.email!):"","Gracias por Comprar en EMARK - Comprobante Electronico",`https://e-mark.herokuapp.com${this.router.url}`)
       })
     });
     

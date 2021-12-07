@@ -3,7 +3,7 @@ import { Categoria } from 'src/app/models/categoria.model';
 import { ProductoService } from '../../services/produtos.service';
 import { Producto } from '../../models/producto.model';
 import { ProductoSolicitado } from '../../models/pedido.model';
-import { CarroCompartidoService} from '../../services/carro.service';
+import { CarroService} from '../../services/carro.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -21,7 +21,7 @@ export class CatalogoComponent implements OnInit {
 
   constructor(
     private productosServices: ProductoService, 
-    private carroService: CarroCompartidoService) 
+    private carroService: CarroService) 
     { 
     this.categoriaActual= new Categoria("Catalogo",[]);
     this.categoriasHijas = [];
@@ -43,10 +43,10 @@ export class CatalogoComponent implements OnInit {
   }
 
   agregarProductoSoilicitado(product:ProductoSolicitado){
-    CarroCompartidoService.getCarro().productos=CarroCompartidoService.getCarro().productos.filter( p => p.producto.nombre!= product.producto.nombre)
-    CarroCompartidoService.getCarro().productos.push(product)
-    CarroCompartidoService.actualizarMonto();
-    console.log(CarroCompartidoService.getCarro());
+    CarroService.getCarro().productos=CarroService.getCarro().productos.filter( p => p.producto.nombre!= product.producto.nombre)
+    CarroService.getCarro().productos.push(product)
+    CarroService.actualizarMonto();
+    console.log(CarroService.getCarro());
   }
 
 

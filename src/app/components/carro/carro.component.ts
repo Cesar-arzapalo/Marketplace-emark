@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Pedido } from '../../models/pedido.model';
-import { CarroCompartidoService } from '../../services/carro.service';
+import { CarroService } from '../../services/carro.service';
 import { ProductoCarro } from '../../models/producto-carro.model';
 
 @Component({
@@ -15,8 +15,8 @@ export class CarroComponent implements OnInit {
   montoTotal:number;
 
   constructor(private router:Router) { 
-    this.pedido = CarroCompartidoService.getCarro()
-    this.montoTotal=CarroCompartidoService.getMonto();
+    this.pedido = CarroService.getCarro()
+    this.montoTotal=CarroService.getMonto();
 
   }
 
@@ -26,13 +26,13 @@ export class CarroComponent implements OnInit {
     this.router.navigateByUrl("/venta")
   }
   actualizarCarro(productoCarro: ProductoCarro){
-    CarroCompartidoService.getCarro().productos[productoCarro.idProductoCarro]=productoCarro.productoSolicitado;
+    CarroService.getCarro().productos[productoCarro.idProductoCarro]=productoCarro.productoSolicitado;
     this.pedido.productos[productoCarro.idProductoCarro]=productoCarro.productoSolicitado;
-    CarroCompartidoService.actualizarMonto();
-    this.montoTotal=CarroCompartidoService.getMonto();
+    CarroService.actualizarMonto();
+    this.montoTotal=CarroService.getMonto();
   }
   obtenerCarro(){
-    this.montoTotal=CarroCompartidoService.getMonto();
+    this.montoTotal=CarroService.getMonto();
   }
   
 

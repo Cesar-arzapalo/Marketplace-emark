@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Producto } from '../../models/producto.model';
 import { ProductoSolicitado } from '../../models/pedido.model';
 import Swal from 'sweetalert2';
-import { CarroCompartidoService } from '../../services/carro.service';
+import { CarroService } from '../../services/carro.service';
 
 @Component({
   selector: 'app-producto',
@@ -32,7 +32,7 @@ export class ProductoComponent implements OnInit {
 
   public agregar = () => {
     let registro = true;
-    CarroCompartidoService.getCarro().productos=CarroCompartidoService.getCarro().productos.map( p => {
+    CarroService.getCarro().productos=CarroService.getCarro().productos.map( p => {
       if (p.producto.id == this.producto!.id){
         p.cantidad+=this.cantidad;
         registro = false;
@@ -40,9 +40,9 @@ export class ProductoComponent implements OnInit {
       return p;
     })
     if(registro){
-      CarroCompartidoService.getCarro().productos.push(new ProductoSolicitado(this.producto!,this.cantidad))
+      CarroService.getCarro().productos.push(new ProductoSolicitado(this.producto!,this.cantidad))
     }
-    CarroCompartidoService.actualizarMonto();
+    CarroService.actualizarMonto();
     this.cantidad = 1;
     const Toast = Swal.mixin({
       toast: true,

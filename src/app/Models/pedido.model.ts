@@ -10,7 +10,7 @@ export class ProductoSolicitadoDB{
     }
 }
 export class Pedido{
-    constructor(public fechaEmision:Date, public productos:ProductoSolicitado[]){
+    constructor(public usuario:string, public fechaEmision:Date, public productos:ProductoSolicitado[]){
 
     }
 
@@ -19,11 +19,5 @@ export class Pedido{
         this.productos.map(producto => monto+=producto.cantidad*producto.producto.precioUnidad)
         console.log(monto)
         return monto;
-    }
-}
-
-export class PedidoDB{
-    constructor(public usuario: string, public fechaEmision:Date, public productosReferencia:Object[]){
-
     }
 }

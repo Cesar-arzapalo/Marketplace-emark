@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CarroCompartidoService } from '../../services/carro.service';
-import { Pedido, PedidoDB, ProductoSolicitado, ProductoSolicitadoDB } from '../../models/pedido.model';
+import { CarroService } from '../../services/carro.service';
+import { Pedido } from '../../models/pedido.model';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { PedidoService } from '../../services/pedido.service';
 import { AuthService } from '@auth0/auth0-angular';
@@ -23,7 +23,7 @@ export class VentaComponent implements OnInit {
   idPagina: number;
   paginacion: Paginacion[];
   pedido: Pedido;
-  monto: number = CarroCompartidoService.getMonto();
+  monto: number = CarroService.getMonto();
   formPedido: FormGroup;
   activacion=false;
 
@@ -33,7 +33,7 @@ export class VentaComponent implements OnInit {
     this.idPagina=1;
     this.paginacion=[{id:1,nombre:"tipo de recepcion"},{id:2,nombre:"tipo de entrega"}
     ,{id:3,nombre:"metodo de pago"},{id:4,nombre:"finalizar venta"}]
-    this.pedido=CarroCompartidoService.carro;
+    this.pedido=CarroService.carro;
     this.formPedido=this.fb.group({
       recepcionForm:[,Validators.required],
       entregaForm:[,Validators.required],
@@ -72,10 +72,12 @@ export class VentaComponent implements OnInit {
 
   finalizarCompra(){
     this.auth.user$.subscribe(perfil => {
-      console.log("finalizando compra",perfil)
       var usuario = (perfil)?(perfil?.name):"Invitado";
-      this.pedidoService.guardarPedido(new Pedido(new Date(),this.pedido.productos)).subscribe( ref => {
-        this.router.navigateByUrl(`/venta/comprobante/${ref.id}`)
+      console.log("finalizando compra",usuario)
+      this.pedidoService.guardarPedido(new Pedido(usuario!, new Date(),this.pedido.productos)).subscribe( ref => {
+        if(ref){
+          this.router.navigateByUrl(`/venta/comprobante/${ref.id}`)
+        }
       })
     })
   }

@@ -67,9 +67,8 @@ export class ProductoService {
       new Producto(productoObject._id,productoObject.nombre, productoObject.descripcion,
         productoObject.caracteristicas[0], productoObject.unidad, productoObject.precioUnidad,
         productoObject.stock,productoObject.valoracion,productoObject.visitas,productoObject.idCategoria,
-        productoObject.idProveedor, productoObject.imagenes);
+        productoObject.idProveedor, productoObject.imagenes, productoObject.comentarios);
     return producto;
   }
-
 
 }

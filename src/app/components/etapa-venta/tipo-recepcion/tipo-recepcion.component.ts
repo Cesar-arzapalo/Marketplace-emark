@@ -14,18 +14,18 @@ export class TipoRecepcionComponent implements OnInit {
   @Output() formularioEmitter: EventEmitter<FormGroup>;
   constructor(fb: FormBuilder, private authService:AuthService) { 
     this.opcionesTipoRecepcion=["Yo recepciono","Un conocido mio recepciona"],
+    this.recepcionForm = fb.group({
+      nombres_completos:["",[Validators.required]],
+      dni:[0,[Validators.required,Validators.min(1000000),Validators.max(99999999)]],
+      telefono:[0,[Validators.required,Validators.min(900000000),Validators.max(999999999)]],
+      nombres_completos_otro_recepcionista!:['Dato',[Validators.required]],
+      dni_otro_recepcionista:[99999999,[Validators.required,Validators.min(1000000),Validators.max(99999999)]],
+      telefono_otro_recepcionista:[999999999,[Validators.required,Validators.min(900000000),Validators.max(999999999)]],
+      otro_recepcionista:[false,[Validators.required]]
+    })
+    this.crearListener();
     this.authService.user$.subscribe(perfil=>{
-
-      this.recepcionForm = fb.group({
-        nombres_completos:[(perfil)?(perfil?.name):"",[Validators.required]],
-        dni:[0,[Validators.required,Validators.min(1000000),Validators.max(99999999)]],
-        telefono:[0,[Validators.required,Validators.min(900000000),Validators.max(999999999)]],
-        nombres_completos_otro_recepcionista!:['Dato',[Validators.required]],
-        dni_otro_recepcionista:[99999999,[Validators.required,Validators.min(1000000),Validators.max(99999999)]],
-        telefono_otro_recepcionista:[999999999,[Validators.required,Validators.min(900000000),Validators.max(999999999)]],
-        otro_recepcionista:[false,[Validators.required]]
-      })
-      this.crearListener();
+      this.recepcionForm.get("nombres_completos_otro_recepcionista")?.setValue( (perfil)?(perfil?.name):"");
     })
 
     this.formularioEmitter = new EventEmitter<FormGroup>()

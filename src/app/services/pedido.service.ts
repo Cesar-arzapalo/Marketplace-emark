@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Pedido, PedidoDB } from '../models/pedido.model';
+import { Pedido } from '../models/pedido.model';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -27,7 +27,17 @@ export class PedidoService {
   }
 
   guardarPedido(pedido: Pedido): Observable<any> {
-    return this.http.post(this.url,pedido);
+    return this.http.post(this.url,pedido)
+      .pipe(
+        map((resultado:any) => {
+          if(resultado.ok){
+            return resultado.mensaje;
+          }else{
+            console.info(resultado.mensaje);
+            return false;
+          }
+        })
+      );
   }
 
   obtenerPedido(id: string) : Observable<any>{
@@ -51,9 +61,7 @@ export class PedidoService {
 }
 
   private generarPedido = (pedidoObject: any): Pedido => {
-    const pedido =
-      new Pedido(pedidoObject.fechaEmision, []);
-    return pedido;
+    return new Pedido(pedidoObject.usuario,pedidoObject.fechaEmision, pedidoObject.productos);
   }
 
 

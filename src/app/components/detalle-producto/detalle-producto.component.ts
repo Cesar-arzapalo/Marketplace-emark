@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductoService } from '../../services/produtos.service';
 import { ActivatedRoute } from '@angular/router';
 import { Producto } from '../../models/producto.model';
-import { CarroCompartidoService } from '../../services/carro.service';
+import { CarroService } from '../../services/carro.service';
 import { ProductoSolicitado } from 'src/app/models/pedido.model';
 import Swal from 'sweetalert2';
 
@@ -56,7 +56,7 @@ export class DetalleProductoComponent implements OnInit {
 
   public agregar = () => {
     let registro = true;
-    CarroCompartidoService.getCarro().productos=CarroCompartidoService.getCarro().productos.map( p => {
+    CarroService.getCarro().productos=CarroService.getCarro().productos.map( p => {
       if (p.producto.id == this.producto!.id){
         p.cantidad+=this.cantidad;
         registro = false;
@@ -64,9 +64,9 @@ export class DetalleProductoComponent implements OnInit {
       return p;
     })
     if(registro){
-      CarroCompartidoService.getCarro().productos.push(new ProductoSolicitado(this.producto!,this.cantidad))
+      CarroService.getCarro().productos.push(new ProductoSolicitado(this.producto!,this.cantidad))
     }
-    CarroCompartidoService.actualizarMonto();
+    CarroService.actualizarMonto();
     this.cantidad = 1;
     const Toast = Swal.mixin({
       toast: true,
