@@ -1,3 +1,26 @@
-.comentarios{
-    margin-left: 40px;
+
+.comentario{
+    background-color: #fff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    margin: 15px 0;
+    padding: 15px;
 }
+.cabecera{
+    margin: 10px 0;
+    font-weight: bold;
+}
+.data{
+    margin: 0 5px;
+}
+.foto{
+    width: 20px;
+    margin: 5px;
+
+}
+.cuerpo{
+    margin: 20px 0;
+}
+    .comentarios{
+        margin-left: 40px;
+    }

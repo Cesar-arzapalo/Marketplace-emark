@@ -1,10 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Producto } from '../models/producto.model';
 import { tap, map } from 'rxjs/operators'
-// import { ProductoModel } from '../Models/producto.model';
-// import { map } from 'rxjs/operators';
 
 
                            
@@ -13,6 +11,10 @@ export interface responseProducto{
   mensaje: Producto[];
 }
 
+export interface Params{
+  name: string;
+  value: any;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +22,8 @@ export interface responseProducto{
 
 
 export class ProductoService {
-  url='https://emark-backend-nodejs.herokuapp.com/producto';
-  // url='http://localhost:2800/producto';
+  // url='https://emark-backend-nodejs.herokuapp.com/producto';
+  url='http://localhost:2800/producto';
   
   
   constructor(private http:HttpClient) { }
@@ -39,6 +41,7 @@ export class ProductoService {
   }
 
   guardarProducto(producto: Producto): Observable<any> {
+    console.log(producto)
     return this.http.post(this.url,producto);
   }
 
@@ -47,6 +50,14 @@ export class ProductoService {
     .pipe(
       map( (resultado: any) => this.generarProducto(resultado.mensaje))
     );
+  }
+
+  actualizarProducto(id: string,params:Params[]) : Observable<any>{
+    const productoParam =  new HttpParams();
+    params.forEach(param => {
+      productoParam.set(param.name,param.value)
+    });
+    return this.http.put(`${this.url}?id=${id}`,undefined,{responseType:'json', params:productoParam});
   }
 
   private generarArregloproductos = (resp: any): Producto[] => { {
@@ -65,9 +76,9 @@ export class ProductoService {
   private generarProducto = (productoObject: any): Producto => {
     const producto =
       new Producto(productoObject._id,productoObject.nombre, productoObject.descripcion,
-        productoObject.caracteristicas[0], productoObject.unidad, productoObject.precioUnidad,
+        productoObject.caracteristicas, productoObject.unidad, productoObject.precioUnidad,
         productoObject.stock,productoObject.valoracion,productoObject.visitas,productoObject.idCategoria,
-        productoObject.idProveedor, productoObject.imagenes, productoObject.comentarios);
+        productoObject.idProveedor, productoObject.imagenes);
     return producto;
   }
 

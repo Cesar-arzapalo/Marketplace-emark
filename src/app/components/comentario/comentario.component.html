@@ -1,22 +1,22 @@
-<div class="comentario" fxLayout="column">
-    <div class ="cabecera" fxLayout="row" fxLayoutAlign="space-around center">
-        <div class="datos" fxLayout="row" fxLayoutAlign="start">
-            <div class="foto">
-                <img [src]="comentario.usuario.foto" alt="">
+<div fxLayout="column">
+    <div class="comentario" fxLayout="column">
+
+        <div class ="cabecera" fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="datos" fxLayout="row" fxLayoutAlign="start center">
+                <img class="foto data"[src]="comentario.usuario.foto" alt="">
+                <div class="nombre data">{{comentario.usuario.nombre}}</div>
+                <div class="fecha data">{{comentario.fecha | fecha: 'fecha_completa'}}</div>
             </div>
-            <div class="nombre">{{comentario.usuario.nombre}}</div>
-            <div class="fecha">{{comentario.fecha}}</div>
+            <div class="opciones" fxLayout="row"  fxLayoutAlign="end">
+                <div class="gestion"></div>
+            </div>
         </div>
-        <div class="opciones" fxLayoutAlign="end">
-            <div class="valoracion">{{comentario.valoracion}}</div>
-            <div class="gestion"></div>
+        <div class="cuerpo" fxLayout="row" fxLayoutAlign="start">
+            <div *ngIf="comentario.descripcion"  class="descripcion">{{comentario.descripcion}}</div>
+            <div *ngIf="comentario.imagen" class="imagen">{{comentario.imagen}}</div>
         </div>
-    </div>
-    <div class="cuerpo" fxLayout="row" fxLayoutAlign="start">
-        <div *ngIf="comentario.descripcion"  class="descripcion">{{comentario.descripcion}}</div>
-        <div *ngIf="comentario.imagen" class="imagen">{{comentario.imagen}}</div>
     </div>
     <div class="comentarios" fxLayout="column">
-        <app-comentario *ngFor="let comentario of comentario.respuestas"></app-comentario>
+        <app-comentario *ngFor="let comentario of comentario.respuestas" [comentario]="comentario"></app-comentario>
     </div>
 </div>

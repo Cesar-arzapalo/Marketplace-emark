@@ -5,7 +5,7 @@ import { Pedido } from '../../models/pedido.model';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { PedidoService } from '../../services/pedido.service';
 import { AuthService } from '@auth0/auth0-angular';
-import { ProductoService } from '../../services/produtos.service';
+import { ProductoService } from '../../services/productos.service';
 
 interface Paginacion{
   id:number;

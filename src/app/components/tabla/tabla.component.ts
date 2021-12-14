@@ -1,45 +1,65 @@
-import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {COLUMN_DATA, ELEMENT_DATA, ProductoQuery} from '../../utils';
-import { MatTableDataSource } from '@angular/material/table';
+
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Campo, ObjetoTabla } from 'src/app/models/objeto-tabla.model';
 @Component({
   selector: 'app-tabla',
   templateUrl: './tabla.component.html',
   styleUrls: ['./tabla.component.scss']
 })
-export class TablaComponent implements OnInit {
-  @Input() val:string[]=[];
-  @Input() datos:any[] =[];
-  @Output() onEliminar = new EventEmitter<any>();
-  @Output() onEditar = new EventEmitter<any>();
-  @Output() onVer = new EventEmitter<any>();
+export class TablaComponent implements OnInit{
 
-  displayedColumns: string[] = [];
-  data:any=[];
-  dataSource = new MatTableDataSource<ProductoQuery>(this.data);
-  acciones=['Ver','Editar','Eliminar'];
-  constructor() { }
+  objetos:ObjetoTabla[]
+  @Input() campos!:Campo[]
+  @Output() eventFormEmit = new EventEmitter<FormArray>();
+  formTabla :FormArray;
+  form: FormGroup;
+  index:number;
+  constructor(private fb:FormBuilder) { 
+    this.objetos=[]
+    this.formTabla=fb.array([])
+    this.form=fb.group({
+      formTabla: this.formTabla
+    })
+    this.index=0;
+  }
+  
+  borrarObjetoTabla(i: number) {
+    this.objetos=this.objetos.filter( (o,index) => index!==i );
+    this.formTabla.removeAt(i)
+  }
+  anyadirObjetoTabla = () => {
+    console.log(this.index,"index")
+    this.objetos.push(new ObjetoTabla(this.index,this.campos))
+    var group = this.fb.group({})
+    this.campos.map(campo =>{
+      group.addControl(campo.nombre,this.fb.control('',[Validators.required]))
+    })
+    this.formTabla.insert(this.index,group)
+    console.log(this.formTabla)
+    console.log(this.objetos)
+    this.index+=1;
+  }
+
+  crearListener(){
+    this.formTabla.valueChanges.subscribe((valor) => {
+      this.eventFormEmit.emit(this.formTabla)
+      console.log(valor);
+    })
+
+    this.formTabla.statusChanges.subscribe((status) => {
+      console.log({status})
+    })
+
+    var formControlNombre=this.formTabla.at(0)
+    
+    if(formControlNombre){
+      formControlNombre.valueChanges.subscribe(console.log);
+    }
+  }
 
   ngOnInit(): void {
-    if(this.val.length>0){
-      this.displayedColumns=this.val.concat(this.acciones);
-      this.data=this.datos;
-    }else{
-      this.displayedColumns=COLUMN_DATA.concat(this.acciones);
-      this.data=ELEMENT_DATA;
-    }
-    this.dataSource = new MatTableDataSource<ProductoQuery>(this.data);
-  }
-  ver(element:any){
-  }
-  editar(element:any){
-  }
-  eliminar(element:any){
-    //Se está recibiendo todo el array de columna, asi que no se olvide los campos
-    //Tener en cuenta que se retorna el elemento completo del datasource
-    //Ejemplo = console.log(element['Contenido1'])
-    this.data.splice(element['nombre'],1)
-    this.dataSource = new MatTableDataSource<ProductoQuery>(this.data);
-    console.log('Eliminando', element['nombre']);
+    this.crearListener()
   }
 
 }

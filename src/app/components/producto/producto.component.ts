@@ -33,7 +33,7 @@ export class ProductoComponent implements OnInit {
   public agregar = () => {
     let registro = true;
     CarroService.getCarro().productos=CarroService.getCarro().productos.map( p => {
-      if (p.producto.id == this.producto!.id){
+      if (p.producto._id == this.producto!._id){
         p.cantidad+=this.cantidad;
         registro = false;
       }

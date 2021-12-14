@@ -1,27 +1,25 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
- <ng-container *ngFor="let col of displayedColumns" [matColumnDef]="col">
-      <th mat-header-cell *matHeaderCellDef>{{col}}</th>
-      <ng-container [ngSwitch]="col">
-        <ng-container *ngSwitchCase="'Ver'">
-              <td mat-cell *matCellDef="let element">
-                <button mat-button (click)="ver(element)">Ver</button>
-              </td>
-        </ng-container>
-        <ng-container *ngSwitchCase="'Editar'">
-              <td mat-cell *matCellDef="let element">
-                <button mat-button (click)="editar(element)">Editar</button>
-              </td>
-        </ng-container>
-        <ng-container *ngSwitchCase="'Eliminar'">
-          <td mat-cell *matCellDef="let element">
-            <button mat-button (click)="eliminar(element)">Eliminar</button>
-          </td>
-        </ng-container>
-        <ng-container *ngSwitchDefault>
-              <td mat-cell *matCellDef="let element">{{element[col]}}</td>
-        </ng-container>
-      </ng-container>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+<form class="row tabla" [formGroup]="form" >
+  <div class="col">
+      <table class="table mb-3">
+          <thead class="table-dark">
+              <tr>
+                  <th scope="col">idx</th>
+                  <th scope="col" *ngFor="let campo of campos">{{campo.nombre}}</th>
+                  <th scope="col">Borrar</th>
+              </tr>
+          </thead>
+          <tbody formArrayName="formTabla">
+              <tr *ngFor="let objeto of objetos; let i = index" [formGroupName]="i">
+                  <th scope="row"> {{ i + 1 }} </th>
+                  <td *ngFor="let campo of objeto.campos;let idx=index"> 
+                      <input class="form-control" [type]="campo.tipo" [placeholder]="'Ingrese un/una ' + campo.nombre" [formControlName]="campo.nombre"  >
+                  </td>
+                  <td>
+                      <button class="btn btn-danger" (click)="borrarObjetoTabla(i)">Borrar</button>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+      <button class="btn btn-primary mt-3 mb-3 float-end" type="button" (click)="anyadirObjetoTabla()"> Agregar Nuevo</button>
+  </div>
+</form>

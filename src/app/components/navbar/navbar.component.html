@@ -24,6 +24,7 @@
 									</a>
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 											<li *ngIf="(auth.isAuthenticated$ | async)"><a (click)="goToLink('user/profile')" class="dropdown-item">Perfil</a></li>
+											<li *ngIf="(auth.isAuthenticated$ | async)"><a (click)="goToLink('user/products')" class="dropdown-item">Publicar Productos</a></li>
 											<li *ngIf="!(auth.isAuthenticated$ | async)"><a (click)="auth.loginWithRedirect()" class="dropdown-item">Login / Registrarse</a></li>
 											<li *ngIf="(auth.isAuthenticated$ | async)"><a (click)="auth.logout()" class="dropdown-item">Cerrar Sesion</a></li>
 									</ul>

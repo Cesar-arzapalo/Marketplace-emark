@@ -19,11 +19,18 @@
     align-items: center;
 }
 
-.detalle-producto{
+.data-detalle{
     min-height: 60vh;
     padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.nombre-detalle{
+    font-weight: bolder;
+}
 .producto-seleccionado{
     border: red 2px solid;
     border-radius: 5px;
@@ -74,9 +81,14 @@
     height: 100%;
 }
 
+
 .agotado{
     color: red;
 }
+.comentario{
+    margin: 20px;
+}
+
 .comentario-head{
     height: 50px;
 }
@@ -84,10 +96,11 @@
 .comentario-titulo{
     font-size: 28px;
     font-weight: bold;
-    padding: 0 20px;
+    margin: 0 5px;
 }
 .comentario-cantidad{
     font-size: 16px;
     font-weight: 500;
-    padding: 0 20px;
+    padding: 5px 20px 0 20px;
+    margin: 0 5px;
 }

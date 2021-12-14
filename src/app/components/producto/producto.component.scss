@@ -1,6 +1,7 @@
 .producto{
     width: 300px;
-
+    background-color: #fff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
 }
 
 .centrado{
@@ -70,10 +71,7 @@
 }
 
 .producto{
-    border-color: rgb(100,100,100);
-    border-style: solid;
     border-radius: 15px;
-    border-width: thin;
     margin:15px;
     padding: 10px;
 }

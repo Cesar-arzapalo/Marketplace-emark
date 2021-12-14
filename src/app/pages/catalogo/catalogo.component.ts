@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { Categoria } from 'src/app/models/categoria.model';
-import { ProductoService } from '../../services/produtos.service';
+import { ProductoService } from '../../services/productos.service';
 import { Producto } from '../../models/producto.model';
 import { ProductoSolicitado } from '../../models/pedido.model';
 import { CarroService} from '../../services/carro.service';
-import Swal from 'sweetalert2';
+import { AuthService } from '@auth0/auth0-angular';
+import { UserService, User } from '../../services/user.service';
 
 @Component({
   selector: 'app-catalogo',
@@ -21,7 +22,8 @@ export class CatalogoComponent implements OnInit {
 
   constructor(
     private productosServices: ProductoService, 
-    private carroService: CarroService) 
+    private carroService: CarroService,
+    private auth: AuthService) 
     { 
     this.categoriaActual= new Categoria("Catalogo",[]);
     this.categoriasHijas = [];
@@ -35,10 +37,8 @@ export class CatalogoComponent implements OnInit {
 
   obtenerProductos(){
     this.productosServices.obtenerProductos().subscribe( (result: Producto[]) =>{
-      console.log(result);
       var productos: Producto[]=result;
       this.productos=productos;
-      console.log(this.productos)
     })
   }
 

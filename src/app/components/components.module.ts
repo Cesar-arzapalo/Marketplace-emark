@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { TablaComponent } from './tabla/tabla.component';
 import { ProductoComponent } from './producto/producto.component';
 import { DetalleProductoComponent } from './detalle-producto/detalle-producto.component';
-import { MaterialModule } from '../material/material.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PipesModule } from '../pipes/pipes.module';
 import {RouterModule} from '@angular/router';
@@ -13,6 +12,7 @@ import { ComentarioComponent } from './comentario/comentario.component';
 import { CarroComponent } from './carro/carro.component';
 import { ProductoCarroComponent } from './producto-carro/producto-carro.component';
 import { BarraComponent } from './barra/barra.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -30,7 +30,8 @@ import { BarraComponent } from './barra/barra.component';
 	],
   imports: [
     CommonModule,
-    MaterialModule,
+    ReactiveFormsModule,
+    FormsModule,
     PipesModule,
     RouterModule,
     FlexLayoutModule

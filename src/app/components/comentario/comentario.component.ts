@@ -14,7 +14,6 @@ export class ComentarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
   }
 
 }
