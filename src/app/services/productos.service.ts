@@ -22,8 +22,8 @@ export interface Params{
 
 
 export class ProductoService {
-  // url='https://emark-backend-nodejs.herokuapp.com/producto';
-  url='http://localhost:2800/producto';
+  url='https://emark-backend-nodejs.herokuapp.com/producto';
+  // url='http://localhost:2800/producto';
   
   
   constructor(private http:HttpClient) { }
