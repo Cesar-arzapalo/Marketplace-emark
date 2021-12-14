@@ -19,8 +19,8 @@ import { PipesModule } from './pipes/pipes.module';
     BrowserAnimationsModule,
 		ComponentsModule,
 		AuthModule.forRoot({
-      domain: 'dev-7-31ptpb.auth0.com',
-      clientId: 'fzzJ4taTOaifATWnoK1UT2QoNZS0JJnk'
+      domain: 'aptir.auth0.com',
+      clientId: 'vT3PBjnZFRcgh3Ri5gHETKSQdOVxdaS9'
     }),
     ComponentsModule,
     HttpClientModule,
