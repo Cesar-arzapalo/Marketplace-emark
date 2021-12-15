@@ -9,6 +9,7 @@ import { Comentario, UsuarioComentario } from '../../models/comentario.model';
 import { Usuario } from '../../models/user.model';
 import { ComentarioService } from '../../services/comentario.service';
 import { Subscription } from 'rxjs';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-detalle-producto',
@@ -23,9 +24,10 @@ export class DetalleProductoComponent implements OnInit {
   imagenActual:string=""
   idProductoSeleccionado=1;
   cantidad: number;
-  constructor(private productoService: ProductoService, private router : ActivatedRoute, private comentarioService: ComentarioService) {
+  constructor(private productoService: ProductoService, private router : ActivatedRoute, private comentarioService: ComentarioService,public userService: UserService) {
     this.cantidad = 1;
     this.obtener_producto();
+    this.obtenerComentarios();
   }
 
   ngOnInit(): void {
@@ -46,17 +48,27 @@ export class DetalleProductoComponent implements OnInit {
     if (text) {
       const comentario = new Comentario("",new UsuarioComentario('Juan','https://imgur.com/h6TaSw4.png'),new Date(),[],text);
       this.comentarios!.push(comentario);
-      console.log(this.comentarios);
       this.comentarioService
         .guardarComentario(comentario,this.producto!)
           .subscribe(resp =>{
-            console.log(resp)
+            if(resp.ok){
+              Swal.fire({
+                title:'Comentario añadido',
+                icon:'success'
+              })
+            }else{
+              
+              Swal.fire({
+                title:'No se pudo añador el comentario',
+                icon:'error'
+              })
+            }
           })
     }
   }
 
   private obtenerComentarios(){
-    this.comentarioService.obtenerComentarios(this.producto!._id).subscribe((resp: Comentario[]) => {
+    this.comentarioService.obtenerComentarios(this.router.snapshot.params.id).subscribe((resp: Comentario[]) => {
       this.comentarios = resp;
       this.comentarioCargado = true;
     });
@@ -66,8 +78,9 @@ export class DetalleProductoComponent implements OnInit {
      this.productoService
       .obtenerProducto(this.router.snapshot.params.id)
       .subscribe(respProducto => {
+        console.log(respProducto);
         this.producto=respProducto;
-        this.obtenerComentarios();
+        console.log(this.producto);
         this.imagenActual=this.producto?.imagenes[0]!;
         this.productoCargado=true;
       });

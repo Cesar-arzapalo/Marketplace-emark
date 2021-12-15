@@ -37,6 +37,10 @@ export class UserService {
     return this.http.post(`${this.url}/login`,{email: userData.email,password: userData.password});
   }
 
+  validUser(){
+    return localStorage.getItem('token');
+  }
+
   guardarProducto(usuario: User): Observable<any> {
     console.log(usuario)
     return this.http.post(this.url,usuario);

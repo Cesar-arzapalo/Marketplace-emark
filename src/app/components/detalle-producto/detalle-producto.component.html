@@ -52,7 +52,7 @@
         <div class="comentario-head" fxLayout="row" fxLayoutAlign="space-between center">
             <div class="comentario-titulo">{{comentarios!.length}} Comentarios</div>
             <div class="comentario-opciones">
-                <button type="button" (click)="enviarComentario()"> Añadir comentario</button>
+                <button *ngIf=" userService.validUser() " type="button" (click)="enviarComentario()"> Añadir comentario</button>
             </div>
         </div>
         <div class="comentario-body">
