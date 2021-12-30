@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProductoService, Params } from '../../services/productos.service';
 import { ActivatedRoute } from '@angular/router';
 import { Producto } from '../../models/producto.model';
-import { CarroService } from '../../services/carro.service';
-import { ProductoSolicitado } from 'src/app/models/pedido.model';
+import { CarroService } from '../../services/carro/carro.service';
+import { ProductoSolicitado } from 'src/app/models/pedido/pedido.model';
 import Swal from 'sweetalert2';
 import { Comentario, UsuarioComentario } from '../../models/comentario.model';
 import { Usuario } from '../../models/user.model';
@@ -104,7 +104,7 @@ export class DetalleProductoComponent implements OnInit {
 
   public agregar = () => {
     let registro = true;
-    CarroService.getCarro().productos=CarroService.getCarro().productos.map( p => {
+    CarroService.getInstanceCarro().productos=CarroService.getInstanceCarro().productos.map( p => {
       if (p.producto._id == this.producto!._id){
         p.cantidad+=this.cantidad;
         registro = false;
@@ -112,7 +112,7 @@ export class DetalleProductoComponent implements OnInit {
       return p;
     })
     if(registro){
-      CarroService.getCarro().productos.push(new ProductoSolicitado(this.producto!,this.cantidad))
+      CarroService.getInstanceCarro().productos.push(new ProductoSolicitado(this.producto!,this.cantidad))
     }
     CarroService.actualizarMonto();
     this.cantidad = 1;

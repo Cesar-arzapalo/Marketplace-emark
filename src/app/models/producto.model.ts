@@ -6,4 +6,9 @@ export class Producto {
         public visitas: number, public idCategoria: string, public idProveedor: string,public imagenes: Array<string>) {
 
     }
+
+    setID(id: string){
+        this._id=id;
+    }
+
 }

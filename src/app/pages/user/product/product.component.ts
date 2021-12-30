@@ -94,8 +94,8 @@ export class ProductComponent implements OnInit {
     console.log(JSON.parse(carracteristicas))
 
     var productoNuevo = new Producto(
-      "61b64def4dc0db0016fc1e04",
-      this.productosForm.get("nombre")?.value,
+      ''
+      ,this.productosForm.get("nombre")?.value,
       this.productosForm.get("descripcion")?.value,
       JSON.parse(carracteristicas),
       this.productosForm.get("unidad")?.value,
@@ -108,7 +108,8 @@ export class ProductComponent implements OnInit {
       imagenes,
     )
     console.log(productoNuevo);
-    this.productoService.guardarProducto(productoNuevo).subscribe( (resp) => {
+    this.productoService.guardarProducto(productoNuevo)
+    .then(( (resp) => {
       console.log(resp);
       if(resp.ok){
         Swal.fire({
@@ -122,6 +123,6 @@ export class ProductComponent implements OnInit {
           icon:'error'
         })
       }
-    })
+    })).catch()
   }
 }

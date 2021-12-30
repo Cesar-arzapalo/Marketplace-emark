@@ -1,0 +1,8 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/98f7c492-0054-4cab-87cf-9bc75bc762b8/resourceGroups/Emark-group/providers/Microsoft.Web/sites/Marketplace-emark",
+    "appService.deploySubpath": ".",
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ]
+}

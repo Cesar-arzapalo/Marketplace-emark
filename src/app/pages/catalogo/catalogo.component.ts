@@ -2,8 +2,8 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 import { Categoria } from 'src/app/models/categoria.model';
 import { ProductoService } from '../../services/productos.service';
 import { Producto } from '../../models/producto.model';
-import { ProductoSolicitado } from '../../models/pedido.model';
-import { CarroService} from '../../services/carro.service';
+import { ProductoSolicitado } from '../../models/pedido/pedido.model';
+import { CarroService} from '../../services/carro/carro.service';
 import { AuthService } from '@auth0/auth0-angular';
 import { UserService, User } from '../../services/user.service';
 
@@ -43,10 +43,10 @@ export class CatalogoComponent implements OnInit {
   }
 
   agregarProductoSoilicitado(product:ProductoSolicitado){
-    CarroService.getCarro().productos=CarroService.getCarro().productos.filter( p => p.producto.nombre!= product.producto.nombre)
-    CarroService.getCarro().productos.push(product)
+    CarroService.getInstanceCarro().productos=CarroService.getInstanceCarro().productos.filter( p => p.producto.nombre!= product.producto.nombre)
+    CarroService.getInstanceCarro().productos.push(product)
     CarroService.actualizarMonto();
-    console.log(CarroService.getCarro());
+    console.log(CarroService.getInstanceCarro());
   }
 
 

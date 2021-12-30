@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Pedido} from '../../../models/pedido.model';
+import { Pedido} from '../../../models/pedido/pedido.model';
 import { CorreoService } from '../../../services/correo.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -7,6 +7,7 @@ import html2canvas from "html2canvas";
 import { PedidoService } from '../../../services/pedido.service';
 import { Mensaje } from '../../../models/mensaje.model';
 import { AuthService } from '@auth0/auth0-angular';
+import { PedidoComprado } from '../../../models/pedido/state.model';
 
 @Component({
   selector: 'app-comprobante',
@@ -31,7 +32,7 @@ export class ComprobanteComponent implements OnInit {
     
   generarPedido(id:string){
     this.pedidoService.obtenerPedido(id).subscribe(resp  =>{
-      this.pedido = new Pedido(resp.usuario, resp.fechaEmision, resp.productoReferencia)
+      this.pedido = new Pedido(resp.usuario, resp.fechaEmision, resp.productoReferencia, new PedidoComprado())
       
       this.pedidoCargado=true;
       this.auth.user$.subscribe(perfil =>{

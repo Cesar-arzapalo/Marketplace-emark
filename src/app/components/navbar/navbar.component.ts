@@ -20,7 +20,6 @@ export class NavbarComponent implements OnInit {
     this.auth.user$.subscribe(
       (profile) => {
         if(profile){
-          console.log(profile)
           this.userService.login(
             new UserValid('jonathan.canales@unmsm.edu.pe','123456'))
               .subscribe(response => {

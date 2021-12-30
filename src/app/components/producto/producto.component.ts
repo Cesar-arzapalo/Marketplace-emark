@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Producto } from '../../models/producto.model';
-import { ProductoSolicitado } from '../../models/pedido.model';
+import { ProductoSolicitado } from '../../models/pedido/pedido.model';
 import Swal from 'sweetalert2';
-import { CarroService } from '../../services/carro.service';
+import { CarroService } from '../../services/carro/carro.service';
 
 @Component({
   selector: 'app-producto',
@@ -32,7 +32,7 @@ export class ProductoComponent implements OnInit {
 
   public agregar = () => {
     let registro = true;
-    CarroService.getCarro().productos=CarroService.getCarro().productos.map( p => {
+    CarroService.getInstanceCarro().productos=CarroService.getInstanceCarro().productos.map( p => {
       if (p.producto._id == this.producto!._id){
         p.cantidad+=this.cantidad;
         registro = false;
@@ -40,7 +40,7 @@ export class ProductoComponent implements OnInit {
       return p;
     })
     if(registro){
-      CarroService.getCarro().productos.push(new ProductoSolicitado(this.producto!,this.cantidad))
+      CarroService.getInstanceCarro().productos.push(new ProductoSolicitado(this.producto!,this.cantidad))
     }
     CarroService.actualizarMonto();
     this.cantidad = 1;

@@ -61,9 +61,9 @@ export class FechaPipe implements PipeTransform {
     }
   }
 
-  private fechaCompleta = (fecha: Date) => `${this.initialZeros(fecha.getDay(),2)} de ${this.formato('mes',fecha)} del ${fecha.getFullYear()}`;
+  private fechaCompleta = (fecha: Date) => `${this.initialZeros(fecha.getDate(),2)} de ${this.formato('mes',fecha)} del ${fecha.getFullYear()}`;
 
-  private fechaReducida = (fecha: Date) => `${this.initialZeros(fecha.getDay(),2)}/${this.initialZeros(fecha.getMonth()+1,2)}/${fecha.getFullYear()}`;
+  private fechaReducida = (fecha: Date) => `${this.initialZeros(fecha.getDate(),2)}/${this.initialZeros(fecha.getMonth()+1,2)}/${fecha.getFullYear()}`;
 
   private obtenerMes(id:number): string{
     switch(id){

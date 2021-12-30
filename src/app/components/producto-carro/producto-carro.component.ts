@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ProductoSolicitado } from '../../models/pedido.model';
+import { ProductoSolicitado } from '../../models/pedido/pedido.model';
 import { ProductoCarro } from '../../models/producto-carro.model';
-import { CarroService } from '../../services/carro.service';
+import { CarroService } from '../../services/carro/carro.service';
 
 @Component({
   selector: 'app-producto-carro',

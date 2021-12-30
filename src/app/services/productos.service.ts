@@ -1,6 +1,6 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Producto } from '../models/producto.model';
 import { tap, map } from 'rxjs/operators'
 
@@ -22,9 +22,9 @@ export interface Params{
 
 
 export class ProductoService {
-  url='https://emark-backend-nodejs.herokuapp.com/producto';
-  // url='http://localhost:2800/producto';
-  
+  // url='https://emark-backend-nodejs.herokuapp.com/producto';
+  url='http://localhost:2800/producto';
+  urlRedSocial='https://red-social-hds.herokuapp.com'
   
   constructor(private http:HttpClient) { }
 
@@ -40,9 +40,24 @@ export class ProductoService {
     return this.http.delete(`${this.url}?id=${id}`);
   }
 
-  guardarProducto(producto: Producto): Observable<any> {
+  guardarProducto(producto: Producto): Promise<any> {
     console.log(producto)
-    return this.http.post(this.url,producto);
+    let header = new HttpHeaders({token: localStorage.getItem('token')!+""});
+    return this.http.post(`${this.urlRedSocial}/post`,{
+      title:producto.nombre,
+      content:producto.descripcion,
+      image:producto.imagenes[0]
+    },{headers: header}).toPromise()
+    .then((resp:any) =>{
+      if(resp.ok){
+        console.log(resp.post._id)
+        producto.setID(resp.post._id)
+        console.log(producto)
+        return this.http.post(this.url,producto).toPromise();
+      }else{
+        return of(false).toPromise()
+      }
+    })
   }
 
   obtenerProducto(id: string) : Observable<any>{
