@@ -12,7 +12,6 @@
 											<input #termino (input)="buscarParcial(termino.value)" (focus)="buscarParcial(termino.value)" class="form-control buscador" name="buscar" ngModel type="search" placeholder="Encuentra tu producto aqui" aria-label="Search">
 									</form>
 							</div>
-							<!-- Modal -->
 					</div>
 					<div class="col-md-1 navbar-section navbar-cuenta">
 							<div class="dropdown">
@@ -23,10 +22,10 @@
 										Mi cuenta
 									</a>
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-											<li *ngIf="(auth.isAuthenticated$ | async)"><a (click)="goToLink('user/profile')" class="dropdown-item">Perfil</a></li>
-											<li *ngIf="(auth.isAuthenticated$ | async)"><a (click)="goToLink('user/products')" class="dropdown-item">Publicar Productos</a></li>
-											<li *ngIf="!(auth.isAuthenticated$ | async)"><a (click)="auth.loginWithRedirect()" class="dropdown-item">Login / Registrarse</a></li>
-											<li *ngIf="(auth.isAuthenticated$ | async)"><a (click)="auth.logout()" class="dropdown-item">Cerrar Sesion</a></li>
+											<!-- <li *ngIf="logueado()"><a (click)="goToLink('/ventas/user/profile')" class="dropdown-item">Perfil</a></li> -->
+											<li *ngIf="logueado() && isProveedor()"><a (click)="goToLink('/ventas/user/products')" class="dropdown-item">Registrar Productos</a></li>
+											<li *ngIf="!logueado()"><a (click)="goToLink('/auth/login')" class="dropdown-item">Login / Registrarse</a></li>
+											<li *ngIf="logueado()"><a (click)="cerrarSesion()" class="dropdown-item">Cerrar Sesion</a></li>
 									</ul>
 							</div>
 					</div>

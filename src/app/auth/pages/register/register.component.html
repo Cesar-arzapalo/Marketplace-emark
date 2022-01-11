@@ -1,0 +1,49 @@
+<div class="login" fxLayout="row">
+  <div class="ingreso" [fxFlex]="33" fxLayout="column">
+    <div class="encabezado" [fxFlex]="30" fxLayout="column" fxLayoutAlign="space-around center">
+      <div class="imagen" [fxFlex]="5"></div>
+      <div class="imagen" [fxFlex]="80">
+        <img class="logo" src="https://imgur.com/pDOYDp2.png" alt="" />
+      </div>
+      <div class="title" [fxFlex]="10" fxFlexFill fxLayoutAlign="center center">
+        <p fxFlexAlign="center center">Registrese en la tienda</p>
+      </div>
+      <div class="imagen" [fxFlex]="5"></div>
+    </div>
+    <form [formGroup]="formRegister" [fxFlex]="70" fxLayout="column nowrap" fxLayoutAlign="space-around center">
+      <div id="row_id" class="row-form" fxLayout="row nowrap" [fxFlex]="8">
+        <input formControlName="username" type="text" placeholder="Nombre del usuario" [fxFlex]="100" />
+      </div>
+
+      <div id="row_id" class="row-form" fxLayout="row nowrap" [fxFlex]="8">
+        <input formControlName="firstname" placeholder="Nombres" type="text"[fxFlex]="100" />
+      </div>
+
+      <div id="row_id" class="row-form" fxLayout="row nowrap" [fxFlex]="8">
+        <input formControlName="lastname" type="text" placeholder="Apellidos" [fxFlex]="100" />
+      </div>
+      <div class="row-form" fxLayout="row nowrap" [fxFlex]="8">
+        <input formControlName="isStaff" type="text"  placeholder="Tipo de usuario" [fxFlex]="100" />
+      </div>
+      <div class="row-form" fxLayout="row nowrap" [fxFlex]="8">
+        <input formControlName="email" type="email" placeholder="Correo electronico" [fxFlex]="100" />
+      </div>
+
+      <div class="row-form" fxLayout="row nowrap" [fxFlex]="8">
+        <input formControlName="password" type="password" [fxFlex]="100" placeholder="Constraseña"/>
+      </div>
+      <!-- <ngx-recaptcha2 #captchaElem [siteKey]="siteKey"> </ngx-recaptcha2> -->
+      <button type="button" class="row-form button" [fxFlex]="8" (click)="registrar()">Registrarse</button>
+
+      <button [fxFlex]="8" type="button" class="row-form button" [routerLink]="['/ventas/catalogo']">Regresar a la
+        tienda</button>
+
+      <div class="pie-pagina" [fxFlex]="10">
+        <a [routerLink]="['/auth/login']"> Desea loguearse?, Hagalo ahora!!</a>
+      </div>
+    </form>
+  </div>
+  <div class="banner" [fxFlex]="67">
+    <app-carousel></app-carousel>
+  </div>
+</div>

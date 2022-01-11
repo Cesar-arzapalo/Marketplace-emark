@@ -15,7 +15,7 @@
                 <h1>{{producto!.nombre}}</h1>
             </div>
             <div class="caracteristicas-detalle">
-                <app-tabla-caracteristicas [caracteristicas]="producto!.caracteristicas"></app-tabla-caracteristicas>
+                <app-tabla-caracteristicas *ngIf="producto!.caracteristicas" [caracteristicas]="producto!.caracteristicas"></app-tabla-caracteristicas>
             </div>
             <div class="precio-detalle">
                 <h3>Precio: S/{{producto!.precioUnidad | number: '1.2-2'}}</h3>
@@ -52,7 +52,7 @@
         <div class="comentario-head" fxLayout="row" fxLayoutAlign="space-between center">
             <div class="comentario-titulo">{{comentarios!.length}} Comentarios</div>
             <div class="comentario-opciones">
-                <button *ngIf=" userService.validUser() " type="button" (click)="enviarComentario()"> Añadir comentario</button>
+                <button *ngIf=" logueado() " type="button" (click)="enviarComentario()"> Añadir comentario</button>
             </div>
         </div>
         <div class="comentario-body">

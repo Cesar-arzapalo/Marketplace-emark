@@ -6,14 +6,9 @@ import { Comentario } from '../../models/comentario.model';
   templateUrl: './comentario.component.html',
   styleUrls: ['./comentario.component.scss']
 })
+
 export class ComentarioComponent implements OnInit {
-
   @Input() comentario!: Comentario;
-  constructor() {
-
-  }
-
-  ngOnInit(): void {
-  }
-
+  constructor() {}
+  ngOnInit(): void {}
 }

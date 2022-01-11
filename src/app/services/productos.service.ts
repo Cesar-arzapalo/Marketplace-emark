@@ -2,15 +2,14 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Producto } from '../models/producto.model';
-import { tap, map } from 'rxjs/operators'
+import { map } from 'rxjs/operators'
+import * as CryptoJS from 'crypto-js';
 
-
-                           
+                         
 export interface responseProducto{
   ok: boolean;
   mensaje: Producto[];
 }
-
 export interface Params{
   name: string;
   value: any;
@@ -20,15 +19,12 @@ export interface Params{
   providedIn: 'root'
 })
 
-
 export class ProductoService {
-  // url='https://emark-backend-nodejs.herokuapp.com/producto';
-  url='http://localhost:2800/producto';
+  url='https://emark-backend-nodejs.herokuapp.com/producto';
+  // url='http://localhost:2800/producto';
   urlRedSocial='https://red-social-hds.herokuapp.com'
-  
   constructor(private http:HttpClient) { }
-
- 
+  
   obtenerProductos = (): any => {
      return this.http.get(this.url)
       .pipe(
@@ -42,7 +38,9 @@ export class ProductoService {
 
   guardarProducto(producto: Producto): Promise<any> {
     console.log(producto)
-    let header = new HttpHeaders({token: localStorage.getItem('token')!+""});
+    let header = new HttpHeaders({token: JSON.parse(CryptoJS.AES.decrypt(
+      localStorage.getItem('tkAuth')!,'eyJhbGciOiJIUzUxMiJ9')
+        .toString(CryptoJS.enc.Utf8)).token+""});
     return this.http.post(`${this.urlRedSocial}/post`,{
       title:producto.nombre,
       content:producto.descripcion,
@@ -75,10 +73,9 @@ export class ProductoService {
     return this.http.put(`${this.url}?id=${id}`,undefined,{responseType:'json', params:productoParam});
   }
 
-  private generarArregloproductos = (resp: any): Producto[] => { {
+  private generarArregloproductos = (resp: any): Producto[] => { 
     const productos: Producto[] = [];
     const productoObject = resp;
-
     if (productoObject !== null) {
         Object.keys(productoObject).forEach( key =>
           productos.push( this.generarProducto(productoObject[key])));
@@ -86,7 +83,6 @@ export class ProductoService {
     console.log(productos)
     return productos;
   }
-}
 
   private generarProducto = (productoObject: any): Producto => {
     const producto =
@@ -96,5 +92,4 @@ export class ProductoService {
         productoObject.idProveedor, productoObject.imagenes);
     return producto;
   }
-
 }

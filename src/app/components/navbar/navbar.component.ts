@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService, User, UserValid } from '../../services/user.service';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-navbar',
@@ -13,44 +13,31 @@ export class NavbarComponent implements OnInit {
 
 	public terminoBusc:string="";
 
-  constructor(public auth: AuthService, private router: Router, public userService: UserService) { }
+  constructor( private router: Router, public userService: UserService) { }
 
   ngOnInit(): void {
     
-    this.auth.user$.subscribe(
-      (profile) => {
-        if(profile){
-          this.userService.login(
-            new UserValid('jonathan.canales@unmsm.edu.pe','123456'))
-              .subscribe(response => {
-                localStorage.setItem('token',response.token);
-              })
-          if(true){
-
-          }
-        }else{
-          localStorage.removeItem('token');
-        }
-        
-      }
-    );
   }
+	buscarTotal(forma:NgForm) {}
 
-
-	buscarTotal(forma:NgForm) {
-
-	}
-
-	buscarParcial(termino:string) {
-	}
+	buscarParcial(termino:string) {}
 
 	goToLink(url:any){
     this.router.navigate([url]);
   }
+  logueado(){
+    return localStorage.getItem('tkAuth');
+  }
 
+  isProveedor(){
+    return JSON.parse(CryptoJS.AES.decrypt(
+      localStorage.getItem('tkAuth')!,'eyJhbGciOiJIUzUxMiJ9')
+        .toString(CryptoJS.enc.Utf8)).tipoUsuario === 'proveedor'
+  }
   login(){
-    this.auth.loginWithRedirect().subscribe(resp => {
-      console.log(resp);
-    })
+  }
+  cerrarSesion(){
+    localStorage.clear();
+    this.router.navigateByUrl('/auth/login')
   }
 }

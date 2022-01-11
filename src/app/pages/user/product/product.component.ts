@@ -4,7 +4,7 @@ import { Campo } from 'src/app/models/objeto-tabla.model';
 import { Producto } from 'src/app/models/producto.model';
 import Swal from 'sweetalert2'
 import { ProductoService } from '../../../services/productos.service';
-import { AuthService } from '@auth0/auth0-angular';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-product',
@@ -17,8 +17,10 @@ export class ProductComponent implements OnInit {
   camposCaracteristica: Campo[]
   productosForm: FormGroup
 
-  constructor(private fb:FormBuilder, private productoService:ProductoService,public auth: AuthService) { 
-    console.log(12)
+  constructor(private fb:FormBuilder, private productoService:ProductoService) { 
+console.log(CryptoJS.AES.decrypt(
+  localStorage.getItem('tkAuth')!,'eyJhbGciOiJIUzUxMiJ9')
+    .toString(CryptoJS.enc.Utf8))
     this.camposImagenes=[new Campo("imagen","text")]
     this.camposCaracteristica=[new Campo("nombre","text"),new Campo("descripcion","text")]
     this.productosForm=fb.group({
@@ -36,7 +38,6 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  
   
   ngOnInit(): void {
     this.crearListener();

@@ -4,8 +4,6 @@ import { ProductoService } from '../../services/productos.service';
 import { Producto } from '../../models/producto.model';
 import { ProductoSolicitado } from '../../models/pedido/pedido.model';
 import { CarroService} from '../../services/carro/carro.service';
-import { AuthService } from '@auth0/auth0-angular';
-import { UserService, User } from '../../services/user.service';
 
 @Component({
   selector: 'app-catalogo',
@@ -21,9 +19,7 @@ export class CatalogoComponent implements OnInit {
   public filtradoTerminado = false;
 
   constructor(
-    private productosServices: ProductoService, 
-    private carroService: CarroService,
-    private auth: AuthService) 
+    private productosServices: ProductoService) 
     { 
     this.categoriaActual= new Categoria("Catalogo",[]);
     this.categoriasHijas = [];
@@ -48,6 +44,5 @@ export class CatalogoComponent implements OnInit {
     CarroService.actualizarMonto();
     console.log(CarroService.getInstanceCarro());
   }
-
 
 }

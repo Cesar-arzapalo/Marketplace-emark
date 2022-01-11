@@ -1,14 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MaterialModule } from './material/material.module';
 
 const routes: Routes = [
-  {path:"catalogo",  loadChildren: () => import('./pages/catalogo/catalogo.module').then( m => m.CatalogoModule)},
-  {path:"administracion",  loadChildren: () => import('./pages/administracion/administracion.module').then( m => m.AdministracionModule)},
-  {path:"proveedor",  loadChildren: () => import('./pages/proveedor/proveedor.module').then( m => m.ProveedorModule)},
-  {path:"user",  loadChildren: () => import('./pages/user/user.module').then( m => m.UserModule)},
-  {path:"venta",  loadChildren: () => import('./pages/venta/venta.module').then( m => m.VentaModule)},
-  {path: "**", pathMatch:"full", redirectTo:"/catalogo"}
+  {path:"auth", loadChildren: () => import('./auth/auth.module').then( m => m.AuthModule )},
+  {path:"ventas",  loadChildren: () => import('./ventas/ventas.module').then( m => m.VentasModule)},
+  {path: "**", pathMatch:"full", redirectTo:"/ventas/catalogo"}
 ];
 
 @NgModule({

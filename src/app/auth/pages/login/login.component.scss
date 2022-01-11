@@ -1,0 +1,103 @@
+@import "../../../../assets/styles/variables.scss";
+.login {
+    height: 100vh;
+    width: 100%;
+    padding: 0px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+    background: $rojo;
+    color: $white-color;
+  }
+  
+  .title {
+    font-family: $font-roboto-bold;
+    font-size: calc(#{$big-font-size}*2);
+    font-weight: bold;
+    margin: 0;
+    height: 80%;
+  }
+  p {
+    margin: 0;
+  }
+  
+  input {
+    background-color: $white-color !important;
+    border-width: 0 !important;
+    border-style: none !important;
+    padding: 12px;
+  
+    font-family: $font-roboto-regular;
+    font-size: $normal-font-size;
+  }
+  input:-internal-autofill-selected {
+    background-color: $white-color !important;
+    border-width: 0 !important;
+    border-style: none !important;
+  
+    font-family: $font-roboto-regular;
+    font-size: $normal-font-size;
+  }
+  
+  .icon {
+    height: 100%;
+    background: $primary-bg;
+  }
+  
+  .ingreso {
+    background: $rojo;
+  }
+  
+  .logo {
+    height: 100%;
+    align-self: center;
+  }
+  
+  .form {
+    margin-top: $spacing-base;
+  }
+  .row-form {
+    width: 90%;
+    height: 20%;
+    box-shadow: $box-shadow;
+    border-radius: calc(#{$border-radius}* 0.27);
+  }
+  
+  .button {
+    background: $white-color;
+    border: none;
+    color: $rojo;
+    font-size: $big-font-size;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: $font-roboto-bold;
+    outline: none;
+  }
+  
+  .button.dark {
+    background: $dark-background !important;
+  }
+  .pie-pagina {
+    font-family: $font-roboto-bold;
+    font-size: $normal-font-size;
+    font-weight: bold;
+    padding: 15px 0;
+    a {
+      text-decoration: underline !important;
+      color: $white-color !important;
+    }
+  }
+  .sentence {
+    font-family: $font-roboto-bold;
+    font-size: $normal-font-size;
+    font-weight: bold;
+  }
+  
+  .banner {
+    img {
+      width: 100%;
+      height: 100vh;
+    }
+  }
+  

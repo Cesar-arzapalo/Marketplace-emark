@@ -3,8 +3,8 @@ import { Comentario, UsuarioComentario } from '../models/comentario.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { ProductComponent } from '../pages/user/product/product.component';
 import { Producto } from '../models/producto.model';
+import * as CryptoJS from 'crypto-js';
 
 export interface responseProducto{
   ok: boolean;
@@ -29,7 +29,9 @@ export class ComentarioService {
 
   guardarComentario(comentario: Comentario, producto: Producto): Observable<any> {
     
-    let header = new HttpHeaders({token: localStorage.getItem('token')!+""});
+    let header = new HttpHeaders({token: JSON.parse(CryptoJS.AES.decrypt(
+      localStorage.getItem('tkAuth')!,'eyJhbGciOiJIUzUxMiJ9')
+        .toString(CryptoJS.enc.Utf8)).token+""});
     console.log(localStorage.getItem('token'),header)
     return this.http.post(`${this.url}/comment`,{
       description:comentario.descripcion,

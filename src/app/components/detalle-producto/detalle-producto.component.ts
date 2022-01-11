@@ -6,10 +6,10 @@ import { CarroService } from '../../services/carro/carro.service';
 import { ProductoSolicitado } from 'src/app/models/pedido/pedido.model';
 import Swal from 'sweetalert2';
 import { Comentario, UsuarioComentario } from '../../models/comentario.model';
-import { Usuario } from '../../models/user.model';
 import { ComentarioService } from '../../services/comentario.service';
-import { Subscription } from 'rxjs';
+import * as CryptoJS from 'crypto-js';
 import { UserService } from '../../services/user.service';
+import { Auth } from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-detalle-producto',
@@ -46,7 +46,14 @@ export class DetalleProductoComponent implements OnInit {
     })
     
     if (text) {
-      const comentario = new Comentario("",new UsuarioComentario('Juan','https://imgur.com/h6TaSw4.png'),new Date(),[],text);
+
+      const nick = (<Auth>JSON.parse(
+        CryptoJS.AES.decrypt(
+          localStorage.getItem('tkAuth')!,'eyJhbGciOiJIUzUxMiJ9')
+            .toString(CryptoJS.enc.Utf8)
+      )).nick
+
+      const comentario = new Comentario("",new UsuarioComentario(nick,'https://imgur.com/h6TaSw4.png'),new Date(),[],text);
       this.comentarios!.push(comentario);
       this.comentarioService
         .guardarComentario(comentario,this.producto!)
@@ -87,6 +94,9 @@ export class DetalleProductoComponent implements OnInit {
       
   }
 
+  logueado(){
+    return localStorage.getItem('tkAuth')
+  }
 
   actualizarImagenSeleccionada = (idx:number) => {
       this.idProductoSeleccionado = idx

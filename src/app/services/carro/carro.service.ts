@@ -7,17 +7,24 @@ import { PedidoEnCompra } from '../../models/pedido/state.model';
 })
 
 export class CarroService {
-  private static carro: Pedido| null = null;
+  private static _carro: Pedido| null = null;
   static monto: number = 0;
+
+  get carro(){
+    return {... CarroService._carro!}
+  }
   
+  set auth(value: Pedido){
+    CarroService._carro = value;
+  }
   private constructor() {
    }
 
    public static getInstanceCarro(){
-    if(CarroService.carro==null){
-      CarroService.carro = new Pedido("",new Date(), [],new PedidoEnCompra())
+    if(CarroService._carro==null){
+      CarroService._carro = new Pedido("",new Date(), [],new PedidoEnCompra())
      }
-     return CarroService.carro;
+     return CarroService._carro;
    }
 
    static getProductosCarro(){
