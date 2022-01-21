@@ -9,9 +9,9 @@ export class CarouselComponent implements OnInit {
 
   constructor() { }
   imagesForSlider = [
-    {path: 'https://imgur.com/1IVyVq0.png'},
-    {path: 'https://imgur.com/tBTZjqJ.png'},
-    {path: 'https://imgur.com/iN9KQVF.png'}, 
+    {path: 'https://imgur.com/yURWdnK.png'},
+    {path: 'https://imgur.com/49CyQdj.png'},
+    {path: 'https://imgur.com/WPGX9gt.png'}, 
   ];
 
   ngOnInit(): void {
