@@ -5,6 +5,7 @@
     width: 300px;
     background-color: #fff;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    color: $text-primario;
 }
 
 .centrado{
@@ -15,7 +16,7 @@
 
 .cantidad{
     background-color: $fondo;
-    color: $white-color !important;
+    color: $text-primario !important;
     font-weight: bold;
     border-radius: 5px;
     
@@ -30,7 +31,7 @@
     height: 150%;
     border-radius: 5px;
     font-size: 10px;
-    color: $white-color !important;
+    color: $text-primario !important;
     font-weight: bold;
     margin: 1px;
 }
@@ -45,7 +46,7 @@
 }
 .producto-agregar{
     background-color: $fondo;
-    color: $white-color !important;
+    color: $text-primario !important;
     font-weight: bold;
     text-decoration: none;
     width: 100%;
@@ -66,14 +67,14 @@
     display: flex;
     align-items: center;
     height:30px ;
-    color: $fondo_oscuro;
+    color: $text-primario;
     font-weight: bold;
 }
 
 .producto-nombre{
     display: flex;
     align-items: center;
-    color: rgb(100, 100, 100);
+    color: $text-primario;
 }
 
 .producto{

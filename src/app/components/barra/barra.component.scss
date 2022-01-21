@@ -11,7 +11,7 @@
     justify-content: center;
     align-items:center;
     text-decoration: none;
-    color:#fff;
+    color:$text-primario;
     background-color: $fondo;
     font-weight: bold;
     font-size: 20px;
@@ -20,7 +20,7 @@
 
 .barra-option:hover{
     background-color:$fondo;
-    color: #fff;
+    color: $text-primario;
     opacity: 0.75;
     font-size: 24px;
 }
@@ -39,5 +39,5 @@
 .opcion-seleccionada{
 
     background-color:$fondo;
-    color: #fff;
+    color: $text-primario;
 }

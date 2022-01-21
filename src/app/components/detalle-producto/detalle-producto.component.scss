@@ -43,7 +43,7 @@
 
 .operador{
     background-color: $fondo;
-    color: $white-color !important;
+    color: $text-primario!important;
     font-weight: bold;
     text-decoration: none;
     width: 100%;
@@ -56,7 +56,7 @@
 .operador:hover{
     font-size: 105%;
     background-color: $fondo;
-    color: $white-color !important;
+    color: $text-primario !important;
     font-weight: bold;
 }
 .opciones-cantidad{
@@ -65,7 +65,7 @@
 }
 .anyadir-comentario{
     background-color: $fondo;
-    color: $white-color !important;
+    color: $text-primario !important;
     font-weight: bold;
     text-decoration: none;
     width: 150px;
@@ -80,7 +80,7 @@
 }
 .producto-agregar{
     background-color: $fondo;
-    color: $white-color !important;
+    color: $text-primario !important;
     font-weight: bold;
     text-decoration: none;
     width: 100%;
@@ -98,7 +98,7 @@
 }
 .cantidad{
     background-color: $fondo;
-    color: $white-color !important;
+    color: $text-primario !important;
     font-weight: bold;
     border-radius: 5px;
     

@@ -4,12 +4,13 @@
     
     width: 100%;
     height: 100%;
+    color: $text-primario;
 }
 
 .boton-carro{
     width: 100%;
     height: 100%;
-    color:#fff!important;
+    color:$text-primario!important;
     text-decoration: none!important;
     display: flex;
     align-items: center;
@@ -39,7 +40,7 @@
 .cabecera-dropdown{
     height: 40px;
     background-color: $fondo;
-    color: #fff;
+    color: $text-primario;
     font-weight: bold;
     padding: 0 8px;
 }
@@ -79,7 +80,7 @@
     padding: 0px 10px;
     font-size: 14px;
     text-decoration: none;
-    color:#fff;
+    color:$text-primario;
     font-weight: bold;
 }
 

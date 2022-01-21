@@ -48,11 +48,12 @@ button {
 }
 button{
   background-color: $fondo !important;
+  color: $text-primario !important;
   border: none;
 }
 .cabecera-pedido {
   background-color: $fondo;
-  color: #fff;
+  color: $text-primario;
   height: 50px;
   font-size: 16px;
   font-weight: bold;

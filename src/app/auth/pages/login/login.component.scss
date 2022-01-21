@@ -8,7 +8,7 @@
     text-align: center;
     align-content: center;
     background: $fondo;
-    color: $white-color;
+    color: $text-primario;
   }
   
   .title {
@@ -67,7 +67,7 @@
   .button {
     background: $white-color;
     border: none;
-    color: $fondo;
+    color: $text-primario;
     font-size: $big-font-size;
     cursor: pointer;
     font-weight: bold;
@@ -85,7 +85,7 @@
     padding: 15px 0;
     a {
       text-decoration: underline !important;
-      color: $white-color !important;
+      color: $text-primario    !important;
     }
   }
   .sentence {

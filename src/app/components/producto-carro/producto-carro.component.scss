@@ -5,7 +5,7 @@
     height: 60px;
     padding: 0 5px;
     background-color: #fff;
-    color: $fondo !important;
+    color: $text-primario!important;
     border: solid $fondo 1px;
     font-size: 12px;
 }
@@ -15,7 +15,7 @@
     justify-content: center;
 }
 a{
-    color: $fondo !important;
+    color: $text-primario !important;
     text-decoration: none;
 }
 
@@ -30,7 +30,7 @@ a:hover{
 }
 
 .close{
-    color:$fondo;
+    color:$fondo !important;
 }
 
 
@@ -44,7 +44,7 @@ a:hover{
     text-decoration: none;
     border-radius: 5px;
     font-size: 10px;
-    color: #fff !important;
+    color: $text-primario !important;
     height: 90%;
     margin: 1px;
 }
