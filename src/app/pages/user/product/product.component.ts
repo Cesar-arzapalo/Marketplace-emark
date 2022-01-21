@@ -24,7 +24,7 @@ console.log(CryptoJS.AES.decrypt(
     this.camposImagenes=[new Campo("imagen","text")]
     this.camposCaracteristica=[new Campo("nombre","text"),new Campo("descripcion","text")]
     this.productosForm=fb.group({
-      nombre: ['',[Validators.required,Validators.maxLength(30)]],
+      nombre: ['',[Validators.required,Validators.maxLength(128)]],
       descripcion:['',[Validators.required,Validators.maxLength(512)]],
       idCategoria:[0,[Validators.required,Validators.min(0),Validators.max(20)]],
       idProvedor:[{value:'61b64d064dc0db0016fc1e02',disabled:true},Validators.required],
