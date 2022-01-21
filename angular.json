@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/aplication-emark",
+            "outputPath": "dist/Gustos-Dulces",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -71,18 +71,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "aplication-emark:build"
+            "browserTarget": "Gustos-Dulces:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "aplication-emark:build:production"
+              "browserTarget": "Gustos-Dulces:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "aplication-emark:build"
+            "browserTarget": "Gustos-Dulces:build"
           }
         },
         "test": {
@@ -119,16 +119,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "aplication-emark:serve"
+            "devServerTarget": "Gustos-Dulces:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "aplication-emark:serve:production"
+              "devServerTarget": "Gustos-Dulces:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "aplication-emark"
+  "defaultProject": "Gustos-Dulces"
 }
