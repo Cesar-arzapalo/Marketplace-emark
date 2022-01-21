@@ -9,8 +9,8 @@ import { ProductoService } from './productos.service';
   providedIn: 'root'
 })
 export class PedidoService {
-  // url = 'https://emark-backend-nodejs.herokuapp.com/pedido';
-  url='http://localhost:2800/pedido';
+  url = 'https://emark-backend-nodejs.herokuapp.com/pedido';
+  // url='http://localhost:2800/pedido';
 
 
   constructor(private http: HttpClient, private productoService: ProductoService) { }
