@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Producto } from '../../models/producto.model';
 import { ProductoSolicitado } from '../../models/pedido/pedido.model';
 import Swal from 'sweetalert2';
-import { CarroService } from '../../services/carro/carro.service';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-producto',
@@ -13,7 +13,7 @@ export class ProductoComponent implements OnInit {
   @Input() producto!: Producto;
   @Output() emitirProductoSolicitado = new EventEmitter<ProductoSolicitado>();
   cantidad: number;
-  constructor() {
+  constructor(private authService: AuthService) {
     this.cantidad = 1;
   }
 
@@ -22,17 +22,15 @@ export class ProductoComponent implements OnInit {
 
   public aumentar = () => {
     this.cantidad = (this.cantidad < this.producto.stock) ? this.cantidad + 1 : this.cantidad;
-    console.log(this.cantidad);
   };
 
   public disminuir = () => {
     this.cantidad = (this.cantidad > 1) ? this.cantidad - 1 : this.cantidad;
-    console.log(this.cantidad);
   };
 
   public agregar = () => {
     let registro = true;
-    CarroService.getInstanceCarro().productos=CarroService.getInstanceCarro().productos.map( p => {
+    this.authService.auth.pedido.productos=this.authService.auth.pedido.productos.map( p => {
       if (p.producto._id == this.producto!._id){
         p.cantidad+=this.cantidad;
         registro = false;
@@ -40,9 +38,9 @@ export class ProductoComponent implements OnInit {
       return p;
     })
     if(registro){
-      CarroService.getInstanceCarro().productos.push(new ProductoSolicitado(this.producto!,this.cantidad))
+      this.authService.auth.pedido.productos.push(new ProductoSolicitado(this.producto!,this.cantidad))
     }
-    CarroService.actualizarMonto();
+    this.authService.actualizarToken(this.authService.auth)
     this.cantidad = 1;
     const Toast = Swal.mixin({
       toast: true,

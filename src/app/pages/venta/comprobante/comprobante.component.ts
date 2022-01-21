@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Pedido} from '../../../models/pedido/pedido.model';
+import { Comprobante, Pedido, ProductoSolicitado } from '../../../models/pedido/pedido.model';
 import { CorreoService } from '../../../services/correo.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import html2canvas from "html2canvas";
 import { PedidoService } from '../../../services/pedido.service';
 import { Mensaje } from '../../../models/mensaje.model';
-import { AuthService } from '@auth0/auth0-angular';
 import { PedidoComprado } from '../../../models/pedido/state.model';
 
 @Component({
@@ -16,11 +15,10 @@ import { PedidoComprado } from '../../../models/pedido/state.model';
 })
 export class ComprobanteComponent implements OnInit {
   mensaje!: Mensaje;
-  pedido!: Pedido;
+  comprobante!: Comprobante;
   monto: number = 0;
-  comprobante: any;
   pedidoCargado: boolean = false;
-  constructor(private actRouter: ActivatedRoute, public router: Router,private auth: AuthService,
+  constructor(private actRouter: ActivatedRoute, public router: Router,
     private pedidoService:PedidoService, public correoService: CorreoService) {
     this.generarPedido(<string>this.actRouter.snapshot.params.id)!;
     
@@ -32,12 +30,11 @@ export class ComprobanteComponent implements OnInit {
     
   generarPedido(id:string){
     this.pedidoService.obtenerPedido(id).subscribe(resp  =>{
-      this.pedido = new Pedido(resp.usuario, resp.fechaEmision, resp.productoReferencia, new PedidoComprado())
-      
+      console.log(resp.mensaje)      
+      this.comprobante = new Comprobante(new Date(resp.mensaje.fechaEmision), resp.mensaje.productoSolicitados,resp.mensaje.comprador)
+      this.monto=Comprobante.getMontoTotal(this.comprobante)
       this.pedidoCargado=true;
-      this.auth.user$.subscribe(perfil =>{
-        this.mensaje= new Mensaje(this.pedido.usuario,(perfil)?(perfil?.email!):"","Gracias por Comprar en EMARK - Comprobante Electronico",`https://e-mark.herokuapp.com${this.router.url}`)
-      })
+        this.mensaje= new Mensaje(`${this.comprobante.usuario!.apellidos}, ${this.comprobante.usuario!.nombres}`,"","Gracias por Comprar en EMARK - Comprobante Electronico",`https://e-mark.herokuapp.com${this.router.url}`)
     });
     
   }

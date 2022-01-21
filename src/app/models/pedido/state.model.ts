@@ -1,4 +1,3 @@
-import { CarroService } from '../../services/carro/carro.service';
 import { Pedido } from './pedido.model';
 export abstract class State {
     protected context!: Pedido;

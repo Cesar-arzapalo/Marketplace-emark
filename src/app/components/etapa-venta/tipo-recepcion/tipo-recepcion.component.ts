@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { AuthService } from '@auth0/auth0-angular';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-tipo-recepcion',
@@ -16,6 +16,7 @@ export class TipoRecepcionComponent implements OnInit {
     this.opcionesTipoRecepcion = ["Yo recepciono", "Un conocido mio recepciona"],
       this.recepcionForm = fb.group({
         nombres_completos: ['', [Validators.required]],
+        apellidos_completos: ['', [Validators.required]],
         dni: [0, [Validators.required, Validators.min(1000000), Validators.max(99999999)]],
         telefono: [0, [Validators.required, Validators.min(900000000), Validators.max(999999999)]],
         nombres_completos_otro_recepcionista!: ['Dato', [Validators.required]],
@@ -24,13 +25,10 @@ export class TipoRecepcionComponent implements OnInit {
         otro_recepcionista: [false, [Validators.required]]
       })
     this.crearListener();
-    console.log(1);
-    this.authService.user$.subscribe(auth => {
-      if (auth) {
-        this.recepcionForm.get('nombres_completos')?.setValue(this.capitalizate(auth.name!))
-      }
-
-    })
+    if(this.authService.isLogin()){
+      this.recepcionForm.get('nombres_completos')?.setValue(this.capitalizate(this.authService.auth.user!.firstName)) 
+      this.recepcionForm.get('apellidos_completos')?.setValue(this.capitalizate(this.authService.auth.user!.lastName)) 
+    }
 
     this.formularioEmitter = new EventEmitter<FormGroup>()
   }

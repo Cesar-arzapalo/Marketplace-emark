@@ -2,15 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import * as CryptoJS from 'crypto-js';
-import { Pedido, ProductoSolicitado } from '../../models/pedido/pedido.model';
-import { CarroService } from '../../services/carro/carro.service';
+import { Pedido } from '../../models/pedido/pedido.model';
 
 export interface Auth{
-  idUser: string;
-  nick: string;
-  tipoUsuario: string;
-  productos: ProductoSolicitado[];
-  token:string;
+  user?:{
+    idUser: string;
+    nick: string;
+    firstName: string;
+    lastName: string;
+    tipoUsuario: string;
+    email:string;
+  }
+  pedido: Pedido;
+  token?:string;
 }
 
 @Injectable({
@@ -20,14 +24,14 @@ export class AuthService {
 
   url: string = 'https://red-social-hds.herokuapp.com';
 
-  private _auth: Auth | undefined;
+  private static _auth: Auth | undefined;
 
   get auth(){
-    return {... this._auth!}
+    return {... AuthService._auth!}
   }
   
   set auth(value: Auth){
-    this._auth = value;
+    AuthService._auth = value;
   }
   
 
@@ -38,7 +42,11 @@ export class AuthService {
           localStorage.getItem('tkAuth')!,'eyJhbGciOiJIUzUxMiJ9')
             .toString(CryptoJS.enc.Utf8)
       );
-      console.log(this.auth)
+    }else{
+      this.auth = <Auth>{
+        pedido:  new Pedido(new Date(), [])
+      };
+      this.actualizarToken(this.auth)
     }
    }
 
@@ -48,37 +56,51 @@ export class AuthService {
     return this.http.post(`${this.url}/login`,{email:email,password:password}).toPromise()
       .then((resp:any) =>{
         this.auth = <Auth>{
-          idUser: resp.usuario._id,
-          nick:resp.usuario.username,
-          tipoUsuario: this.getRole(resp.usuario.isStaff),
+          user:{
+            idUser: resp.usuario._id,
+            nick:resp.usuario.username,
+            firstName: resp.usuario.firstName,
+            lastName: resp.usuario.lastName,
+            tipoUsuario: this.getRole(resp.usuario.isStaff),
+            email:resp.usuario.email
+          },          
           token: resp.token,
-          productos: CarroService.getInstanceCarro().productos
+          pedido: this.auth.pedido
         };
-        console.log(this.auth)
         this.actualizarToken(this.auth);
-        return this._auth;
-      })
-      .catch((err:any)=>{
-        return this._auth;
+        return this.auth;
       })
   }
   public register(user: any){
     return this.http.post(`${this.url}/usuario`,user).toPromise()
       .then((resp:any) =>{
-        return this._auth;
+        return this.auth;
       })
       .catch((err:any)=>{
-        return this._auth;
+        return this.auth;
       })
   }
 
   public actualizarToken(data: Auth){
     localStorage.setItem('tkAuth',
-    CryptoJS.AES.encrypt(
-      JSON.stringify(data),'eyJhbGciOiJIUzUxMiJ9')
-        .toString()
+      CryptoJS.AES.encrypt(
+        JSON.stringify(data),'eyJhbGciOiJIUzUxMiJ9')
+          .toString()
     )
   }
+
+  public cerrarSesion(data: Auth){
+    this.auth = {
+      pedido: data.pedido
+    }
+    
+    localStorage.setItem('tkAuth',
+      CryptoJS.AES.encrypt(
+        JSON.stringify(this.auth),'eyJhbGciOiJIUzUxMiJ9')
+          .toString()
+    )
+  }
+
   public updatePassword = (email:string, oldPassword: string, newPassword: string) => {
     return this.login(email, oldPassword)
           .then( (resp =>{
@@ -92,6 +114,9 @@ export class AuthService {
       case 'ADMIN_ROLE': return 'proveedor';
       default: return 'usuario';
     }
+  }
+  public isLogin(): boolean{
+    return !!this.auth.user
   }
   
 }

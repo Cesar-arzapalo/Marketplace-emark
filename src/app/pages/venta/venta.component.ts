@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CarroService } from '../../services/carro/carro.service';
 import { Pedido } from '../../models/pedido/pedido.model';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { PedidoService } from '../../services/pedido.service';
-import { AuthService } from '@auth0/auth0-angular';
 import { ProductoService } from '../../services/productos.service';
 import { PedidoEnCompra } from '../../models/pedido/state.model';
+import { AuthService } from '../../auth/services/auth.service';
+import { Usuario } from '../../models/user.model';
 
 interface Paginacion{
   id:number;
@@ -24,17 +24,20 @@ export class VentaComponent implements OnInit {
   idPagina: number;
   paginacion: Paginacion[];
   pedido: Pedido;
-  monto: number = CarroService.getMonto();
+  monto: number;
   formPedido: FormGroup;
   activacion=false;
 
 
-  constructor(private router: Router,private productoServices: ProductoService, private pedidoService: PedidoService,private fb :FormBuilder,private auth: AuthService) {
+  constructor(private router: Router,private productoServices: ProductoService, 
+    private pedidoService: PedidoService,private fb :FormBuilder,
+    private authService: AuthService) {
     this.pagina="tipo de recepcion";
     this.idPagina=1;
     this.paginacion=[{id:1,nombre:"tipo de recepcion"},{id:2,nombre:"tipo de entrega"}
     ,{id:3,nombre:"metodo de pago"},{id:4,nombre:"finalizar venta"}]
-    this.pedido=CarroService.getInstanceCarro();
+    this.pedido=this.authService.auth.pedido;
+    this.monto = Pedido.getMontoTotal(this.authService.auth.pedido)
     this.formPedido=this.fb.group({
       recepcionForm:[,Validators.required],
       entregaForm:[,Validators.required],
@@ -72,21 +75,31 @@ export class VentaComponent implements OnInit {
   }
 
   finalizarCompra(){
-    this.auth.user$.subscribe(perfil => {
-      var usuario = (perfil)?(perfil?.name):"Invitado";
-      console.log("finalizando compra",usuario)
-
-      let state =new PedidoEnCompra();
-      const pedido = new Pedido(usuario!, new Date(),this.pedido.productos, state);
-      state.setContext(pedido)
-      this.router.navigateByUrl(`/venta/comprobante/${9}`)
-      this.pedidoService.guardarPedido(pedido).subscribe( ref => {
-        console.log(ref)
-        if(ref){
-          this.router.navigateByUrl(`/venta/comprobante/${9}`)
-        }
-      })
+    const usuario: Usuario = {
+      nombres: <string>this.formPedido.get('recepcionForm')?.value.value['nombres_completos'],
+      apellidos: <string>this.formPedido.get('recepcionForm')?.value.value['apellidos_completos'],
+      dni: +this.formPedido.get('recepcionForm')?.value.value['dni'],
+      celular: +this.formPedido.get('recepcionForm')?.value.value['telefono'],
+      tarjeta:{
+        numero: +this.formPedido.get('ventaForm')?.value.value['nro_tarjeta'],
+        fecha_vencimiento: new Date(this.formPedido.get('ventaForm')?.value.value['fecha_caducidad']),
+        ccv: +this.formPedido.get('ventaForm')?.value.value['ccv']
+      },
+      direccion:{
+        direccion: <string>this.formPedido.get('entregaForm')?.value.value['direccion'],
+        distrito: <string>this.formPedido.get('entregaForm')?.value.value['distrito'],
+        codigo_postal: <string>this.formPedido.get('entregaForm')?.value.value['codigo_postal']
+      },
+      foto: "https://imgur.com/h6TaSw4.png"
+    }
+    const pedido = new Pedido(new Date(),this.pedido.productos, usuario);
+    this.pedidoService.guardarPedido(pedido).subscribe( ref => {
+      console.log(ref)
+      if(ref.ok){
+        this.router.navigateByUrl(`/ventas/pedido/comprobante/${ref.mensaje._id}`)
+      }
     })
+    
   }
 
   obtenerPaginacion(id:number):string{

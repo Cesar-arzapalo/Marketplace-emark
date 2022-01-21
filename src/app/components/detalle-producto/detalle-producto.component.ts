@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ProductoService, Params } from '../../services/productos.service';
 import { ActivatedRoute } from '@angular/router';
 import { Producto } from '../../models/producto.model';
-import { CarroService } from '../../services/carro/carro.service';
 import { ProductoSolicitado } from 'src/app/models/pedido/pedido.model';
 import Swal from 'sweetalert2';
 import { Comentario, UsuarioComentario } from '../../models/comentario.model';
 import { ComentarioService } from '../../services/comentario.service';
 import * as CryptoJS from 'crypto-js';
 import { UserService } from '../../services/user.service';
-import { Auth } from '../../auth/services/auth.service';
+import { Auth, AuthService } from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-detalle-producto',
@@ -24,7 +23,9 @@ export class DetalleProductoComponent implements OnInit {
   imagenActual:string=""
   idProductoSeleccionado=1;
   cantidad: number;
-  constructor(private productoService: ProductoService, private router : ActivatedRoute, private comentarioService: ComentarioService,public userService: UserService) {
+  constructor(private productoService: ProductoService, private router : ActivatedRoute, 
+    private comentarioService: ComentarioService,public userService: UserService,
+    private authService: AuthService, private cdr: ChangeDetectorRef) {
     this.cantidad = 1;
     this.obtener_producto();
     this.obtenerComentarios();
@@ -47,11 +48,7 @@ export class DetalleProductoComponent implements OnInit {
     
     if (text) {
 
-      const nick = (<Auth>JSON.parse(
-        CryptoJS.AES.decrypt(
-          localStorage.getItem('tkAuth')!,'eyJhbGciOiJIUzUxMiJ9')
-            .toString(CryptoJS.enc.Utf8)
-      )).nick
+      const nick = this.authService.auth.user!.nick
 
       const comentario = new Comentario("",new UsuarioComentario(nick,'https://imgur.com/h6TaSw4.png'),new Date(),[],text);
       this.comentarios!.push(comentario);
@@ -85,9 +82,7 @@ export class DetalleProductoComponent implements OnInit {
      this.productoService
       .obtenerProducto(this.router.snapshot.params.id)
       .subscribe(respProducto => {
-        console.log(respProducto);
         this.producto=respProducto;
-        console.log(this.producto);
         this.imagenActual=this.producto?.imagenes[0]!;
         this.productoCargado=true;
       });
@@ -95,7 +90,7 @@ export class DetalleProductoComponent implements OnInit {
   }
 
   logueado(){
-    return localStorage.getItem('tkAuth')
+    return this.authService.auth.token;
   }
 
   actualizarImagenSeleccionada = (idx:number) => {
@@ -104,27 +99,25 @@ export class DetalleProductoComponent implements OnInit {
   }
   public aumentar = () => {
     this.cantidad = (this.cantidad < this.producto!.stock) ? this.cantidad + 1 : this.cantidad;
-    console.log(this.cantidad);
   };
 
   public disminuir = () => {
     this.cantidad = (this.cantidad > 1) ? this.cantidad - 1 : this.cantidad;
-    console.log(this.cantidad);
   };
 
   public agregar = () => {
-    let registro = true;
-    CarroService.getInstanceCarro().productos=CarroService.getInstanceCarro().productos.map( p => {
+    let productoEnCarro = false;
+    this.authService.auth.pedido.productos=this.authService.auth.pedido.productos.map( p => {
       if (p.producto._id == this.producto!._id){
         p.cantidad+=this.cantidad;
-        registro = false;
+        productoEnCarro = true;
       }
       return p;
     })
-    if(registro){
-      CarroService.getInstanceCarro().productos.push(new ProductoSolicitado(this.producto!,this.cantidad))
+    if(!productoEnCarro){
+      this.authService.auth.pedido.productos.push(new ProductoSolicitado(this.producto!,this.cantidad))
     }
-    CarroService.actualizarMonto();
+    this.authService.actualizarToken(this.authService.auth)
     this.cantidad = 1;
     const Toast = Swal.mixin({
       toast: true,
@@ -140,7 +133,7 @@ export class DetalleProductoComponent implements OnInit {
 
     Toast.fire({
       icon: 'success',
-      title: `Se ${registro?"registro":"actualizo"} el producto en el carro`
+      title: `Se ${productoEnCarro?"registro":"actualizo"} el producto en el carro`
     })
   }
 }

@@ -1,10 +1,19 @@
-class Tarjeta {
-    constructor(public numero: number, public fecha_vencimiento: number, public ccv: number){}
+interface Tarjeta {
+    numero: number;
+    fecha_vencimiento: Date;
+    ccv: number;
 }
-class Direccion {
-    constructor( public direccion: string, public distrito: string, public codigo_postal:number){}
+interface Direccion {
+    direccion: string,
+    distrito: string;
+    codigo_postal:string;
 }
-export class Usuario{
-    constructor( public nombre: string, public apellidos: string, public correo: string,
-                 public direcciones: Array<Direccion>, public tarjetas: Array<Tarjeta>){}
+export interface  Usuario{
+    nombres: string;
+    apellidos: string;
+    dni: number;
+    celular: number;
+    direccion: Direccion;
+    tarjeta: Tarjeta;
+    foto: string;
 }

@@ -65,12 +65,10 @@ export class ProductoService {
     );
   }
 
-  actualizarProducto(id: string,params:Params[]) : Observable<any>{
-    const productoParam =  new HttpParams();
-    params.forEach(param => {
-      productoParam.set(param.name,param.value)
-    });
-    return this.http.put(`${this.url}?id=${id}`,undefined,{responseType:'json', params:productoParam});
+  actualizarProducto(id: string,...params: any[]) : Observable<any>{
+    let parametros: string = '';
+    params.map(p => parametros+=`${Object.keys({p})}=${p}&`)
+    return this.http.put(`${this.url}?id=${id}&${parametros}`,undefined);
   }
 
   private generarArregloproductos = (resp: any): Producto[] => { 
@@ -80,7 +78,6 @@ export class ProductoService {
         Object.keys(productoObject).forEach( key =>
           productos.push( this.generarProducto(productoObject[key])));
     }
-    console.log(productos)
     return productos;
   }
 

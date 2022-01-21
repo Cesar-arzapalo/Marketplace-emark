@@ -2,21 +2,27 @@
     <div class="col-md-2 centrado-verticalmente">
         <img [src]="productoSolicitado.producto.imagenes[0]" alt=""> 
     </div>
-    <div class="col-md-7 centrado-verticalmente en-filas" >
+    <div class="col-md-6 centrado-verticalmente en-filas" >
+        <a class="centrado-verticalmente producto-data" [routerLink]="['/ventas','catalogo',productoSolicitado.producto._id]" >
+            {{productoSolicitado.producto.nombre | maxLength:30:" ..."}}
+        </a>
         <div class="centrado-verticalmente producto-data">
-            Nombre: {{productoSolicitado.producto.nombre | maxLength:15:" ..."}}
-        </div>
-        <div class="centrado-verticalmente producto-data">
-            Precio: S/{{productoSolicitado.producto.precioUnidad | number:'1.2-2'}}
+            S/{{productoSolicitado.producto.precioUnidad | number:'1.2-2'}}
         </div>
     </div>
-    <div class="col-md-3 centrado-verticalmente">
-        <div class="row">
-            <a class="col operador centrado" (click)="aumentar()"><i class="fas fa-plus"></i></a>
-            <div class="col">
+    <div class="col-md-3 centrado">
+        <div class="row centrado operadores">
+            <a class="col-md-4 operador centrado" (click)="aumentar()"><i class="fas fa-plus"></i></a>
+            <div class="col-md-3">
                 {{productoSolicitado.cantidad}}
             </div>
-            <a class="col operador centrado" (click)="disminuir()"><i class="fas fa-minus"></i></a>
+            <a class="col-md-4 operador centrado" (click)="disminuir()"><i class="fas fa-minus"></i></a>
+
+        </div>
+    </div>
+    <div class="col-md-1  esquina-superior">
+        <div class="row">
+           <a class="col close center" (click)="eliminar()"><i class="fas fa-times"></i></a>
         </div>
     </div>
 </div>

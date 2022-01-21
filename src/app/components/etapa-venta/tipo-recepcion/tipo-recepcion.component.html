@@ -5,10 +5,23 @@
         <h3 *ngIf="opcionesTipoRecepcion[opcionId]===opcionesTipoRecepcion[1]" class="mb-2" >Mi datos</h3>
         
         <div class="" id="yo-recepciono">
-            <div class="input-group input-group-md mb-2 p-3">
-                <span class="input-group-text" id="inputGroup-sizing-md">Nombres y apellidos</span>
-                <input type="text" class="form-control" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-md" formControlName="nombres_completos" />
+            <div class="row g-0">
+                <div class="col p-3">
+                    <div class="input-group input-group-md mb-2 p-3">
+                        <span class="input-group-text" id="inputGroup-sizing-md">Nombres</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-md" formControlName="nombres_completos" />
+                    </div>
+    
+                </div>
+                <div class="col p-3">
+                    <div class="input-group input-group-md mb-2 p-3">
+                        <span class="input-group-text" id="inputGroup-sizing-md">Apellidos</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-md" formControlName="apellidos_completos" />
+                    </div>
+    
+                </div>
             </div>
             <div class="row g-0">
                 <div class="col p-3">

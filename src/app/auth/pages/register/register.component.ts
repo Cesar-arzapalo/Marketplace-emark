@@ -12,7 +12,6 @@ import Swal from 'sweetalert2';
 export class RegisterComponent implements OnInit {
 
   row!: HTMLElement;
-  height_row_form: string = `${1}px`;
   formRegister: FormGroup;
   urlAdmin: string = 'https://administracion-pmtd.herokuapp.com';
   urlAdminLocal: string = 'http://localhost:4400';
@@ -30,7 +29,6 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.row=(document.getElementById('row_id')!);
     this.crearListener();
   }
   

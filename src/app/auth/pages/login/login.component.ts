@@ -22,7 +22,25 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this.crearListener();
   }
+  
+  crearListener(){
+    this.formLogin.valueChanges.subscribe((valor) => {
+      console.log(valor);
+    })
+
+    this.formLogin.statusChanges.subscribe((status) => {
+      console.log({status})
+    })
+
+    var formControlNombre=this.formLogin.get('nombre')
+    
+    if(formControlNombre){
+      formControlNombre.valueChanges.subscribe(console.log);
+    }
+  }
+
 
   public  ingresar = () =>  {
     Toast.showLoading();
@@ -37,12 +55,19 @@ export class LoginComponent implements OnInit {
           if(resp){
             this.notificationSuccess(Toast,"Ingresando al sistema")
             this.router.navigate(['/ventas/catalogo']);
-          }else{
-            this.notificationErr(Toast,"Usuario y/o contraseña incorrectos")
           }
         })
         .catch(err  => {
-          this.notificationErr(Toast,"Error al conectarse con el servidor")
+          switch(err.statusText){
+            case 'Bad Request':{
+              this.notificationErr(Toast,"Usuario y/o contraseña incorrecta")
+              break;
+            } 
+            default:{
+              this.notificationErr(Toast,"Error al conectarse con el servidor")
+              break;
+            }
+          }
         })
   }
 

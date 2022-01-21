@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
@@ -12,10 +11,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   accountForm!: FormGroup; 
   subscriptions: Array<Subscription> = [];
-  constructor(public auth: AuthService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.auth.user$
     this.accountForm = new FormGroup({
       nombre: new FormControl('', [Validators.required]),
       apellidos: new FormControl('', [Validators.required]),

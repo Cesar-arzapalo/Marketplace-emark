@@ -1,5 +1,6 @@
 import { Producto } from '../producto.model';
 import { State } from './state.model';
+import { Usuario } from '../user.model';
 export class ProductoSolicitado{
     constructor(public producto:Producto, public cantidad:number){
 
@@ -10,18 +11,35 @@ export class ProductoSolicitadoDB{
 
     }
 }
+
+export interface  ProductoPagado{
+  nombre: string;
+  descripcion: string;
+  caracteristicas: Object;
+  imagenes: Array<string>;
+  cantidad: number;
+  precioUnidad: number; 
+}
+
+export class Comprobante{
+    
+  constructor(public fechaEmision:Date, public productos:ProductoPagado[], public usuario?:Usuario, ){
+  }
+
+  static getMontoTotal(comprobante: Comprobante){
+    var monto:number = 0;
+    comprobante.productos.map(producto => monto+=producto.cantidad*producto.precioUnidad)
+    return monto;
+}
+}
 export class Pedido{
     
-    private state: State;
-    constructor(public usuario:string, public fechaEmision:Date, public productos:ProductoSolicitado[], state: State){
-        this.state = state;
-        this.state.setContext(this);
+    constructor(public fechaEmision:Date, public productos:ProductoSolicitado[], public usuario?:Usuario, ){
     }
 
-    getMontoTotal(){
+    static getMontoTotal(pedido: Pedido){
         var monto:number = 0;
-        this.productos.map(producto => monto+=producto.cantidad*producto.producto.precioUnidad)
-        console.log(monto)
+        pedido.productos.map(producto => monto+=producto.cantidad*producto.producto.precioUnidad)
         return monto;
     }
     
@@ -29,16 +47,6 @@ export class Pedido{
   
   public transitionTo(state: State): void {
     console.log(`Context: Transition to ${(<any>state).constructor.name}.`);
-    this.state = state;
-    this.state.setContext(this);
-}
-    public request1(): void {
-        this.state.handle1();
-    }
-
-    public request2(): void {
-        this.state.handle2();
-    }
-
+  }
 }
 

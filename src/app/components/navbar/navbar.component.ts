@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService, User, UserValid } from '../../services/user.service';
+import { UserService } from '../../services/user.service';
 import * as CryptoJS from 'crypto-js';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +14,9 @@ export class NavbarComponent implements OnInit {
 
 	public terminoBusc:string="";
 
-  constructor( private router: Router, public userService: UserService) { }
+  constructor( private router: Router, 
+    public userService: UserService,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     
@@ -26,18 +29,17 @@ export class NavbarComponent implements OnInit {
     this.router.navigate([url]);
   }
   logueado(){
-    return localStorage.getItem('tkAuth');
+    return this.authService.auth.user;
   }
 
   isProveedor(){
-    return JSON.parse(CryptoJS.AES.decrypt(
-      localStorage.getItem('tkAuth')!,'eyJhbGciOiJIUzUxMiJ9')
-        .toString(CryptoJS.enc.Utf8)).tipoUsuario === 'proveedor'
+    return this.authService.auth.user!.tipoUsuario === 'proveedor'
   }
   login(){
+    return this.authService.isLogin()
   }
   cerrarSesion(){
-    localStorage.clear();
-    this.router.navigateByUrl('/auth/login')
+   this.authService.cerrarSesion(this.authService.auth);
+   this.router.navigateByUrl('/auth/login')
   }
 }

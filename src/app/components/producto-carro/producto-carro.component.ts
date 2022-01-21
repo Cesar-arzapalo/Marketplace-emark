@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ProductoSolicitado } from '../../models/pedido/pedido.model';
-import { ProductoCarro } from '../../models/producto-carro.model';
-import { CarroService } from '../../services/carro/carro.service';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-producto-carro',
@@ -11,29 +10,30 @@ import { CarroService } from '../../services/carro/carro.service';
 export class ProductoCarroComponent implements OnInit {
   @Input() productoSolicitado!: ProductoSolicitado;
   @Input() indice!: number;
-  @Output() emitirProductoCarro = new EventEmitter<ProductoCarro>();
-  constructor() { 
+  @Output() emitirProductoCarro = new EventEmitter<string>();
+
+  constructor(private authService: AuthService) { 
   }
 
   ngOnInit(): void {
   }
 
   public aumentar = () => {
-    console.log(CarroService.getProductosCarro()[this.indice]);
     this.productoSolicitado.cantidad=(this.productoSolicitado.cantidad<this.productoSolicitado.producto.stock)?this.productoSolicitado.cantidad + 1:this.productoSolicitado.cantidad;
-    this.agregar();
-    console.log(CarroService.getProductosCarro()[this.indice]);
+    this.authService.actualizarToken(this.authService.auth);
+    this.emitirProductoCarro.emit("aumento");
   };
 
   public disminuir = () => {
-    console.log(CarroService.getProductosCarro()[this.indice]);
     this.productoSolicitado.cantidad=(this.productoSolicitado.cantidad>1)?this.productoSolicitado.cantidad - 1:this.productoSolicitado.cantidad;
-    this.agregar();
-    console.log(CarroService.getProductosCarro()[this.indice]);
+    this.authService.actualizarToken(this.authService.auth);
+    this.emitirProductoCarro.emit("disminuyo");
   };
 
-  public agregar = () => {
-    this.emitirProductoCarro.emit(new ProductoCarro(this.productoSolicitado, this.indice))
+  public eliminar = () =>{
+    this.authService.auth.pedido.productos=this.authService.auth.pedido.productos.filter(p => p!==this.productoSolicitado)
+    this.authService.actualizarToken(this.authService.auth);
+    this.emitirProductoCarro.emit("se elimino");
   }
 
 }

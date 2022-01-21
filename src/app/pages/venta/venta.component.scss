@@ -1,91 +1,89 @@
-.venta{
-    padding: 0px 20px;
-    margin: 20px 0;
+.venta {
+  padding: 0px 20px;
+  margin: 20px 0;
 }
 
-.pedido{
-    padding: 0px 20px;
-    margin: 20px 0;
+.pedido {
+  padding: 0px 20px;
+  margin: 20px 0;
+}
+.pedido-tabla{
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
 }
 
-.titulo-venta{
-    font-size: 24px;
-    font-weight: bold;
+.titulo-venta {
+  font-size: 24px;
+  font-weight: bold;
 }
 
-button{
-    width: 50%;
-    height: 40px;
-    font-size: 18px;
+button {
+  width: 50%;
+  height: 40px;
+  font-size: 18px;
 }
 
-.centrado{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.centrado {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.centrado-verticalmente{
-    display: flex;
-    align-items: center;
+.centrado-verticalmente {
+  display: flex;
+  align-items: center;
 }
-.monto{
-    height: 100%;
+.monto {
+  height: 100%;
 }
-.centrado-verticalmente-derecho{
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-    /* justify-content: end; */
-    text-align: center;
-}
-
-
-
-
-.cabecera-pedido{
-    background-color: red;
-    color: #fff;
-    height: 50px;
-    font-size: 16px;
-    font-weight: bold;
+.centrado-verticalmente-derecho {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  /* justify-content: end; */
+  text-align: center;
 }
 
-.cuerpo-pedido{
-    border: red solid 1px;
+.cabecera-pedido {
+  background-color: red;
+  color: #fff;
+  height: 50px;
+  font-size: 16px;
+  font-weight: bold;
 }
 
-.monto-pedido{
-    border: red solid 1px;
-    height: 80px;
-    color: #000;
-    font-weight: bold;
+.cuerpo-pedido {
+  border: red solid 1px;
 }
 
-.sin-pedido{
-    border: red solid 1px;
-    height: 400px;
-    color: #000;
-    font-weight: bold;
+.monto-pedido {
+  border: red solid 1px;
+  height: 80px;
+  color: #000;
+  font-weight: bold;
 }
 
-.notificacion{
-    font-size: 32px;
+.sin-pedido {
+  border: red solid 1px;
+  height: 400px;
+  color: #000;
+  font-weight: bold;
 }
 
-img{
-    height: 80px;
-    max-height: 80px;
-    max-width: 80px;
-    padding: 5%;
+.notificacion {
+  font-size: 32px;
 }
 
-.producto-carro:hover{
-    font-weight: normal!important;
+.imagen {
+  max-height: 90%;
+  max-width: 90%;
+  padding: 5%;
 }
 
-.en-filas{
-    flex-wrap: wrap;
-    flex-direction: column;
+.producto-carro:hover {
+  font-weight: normal !important;
+}
 
+.en-filas {
+  flex-wrap: wrap;
+  flex-direction: column;
 }
