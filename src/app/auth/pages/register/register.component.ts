@@ -22,7 +22,6 @@ export class RegisterComponent implements OnInit {
       username:['', [Validators.required]],
       firstname:['', [Validators.required]],
       lastname:['', [Validators.required]],
-      isStaff:['', [Validators.required]],
       email:['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     })
@@ -62,7 +61,7 @@ export class RegisterComponent implements OnInit {
       lastName:this.formRegister.get('lastname')!.value,
       email:this.formRegister.get('email')!.value,
       password:this.formRegister.get('password')!.value,
-      isStaff:this.obtenerRol(this.formRegister.get('isStaff')?.value),
+      isStaff:'cliente',
       isActivated:true
     }
 

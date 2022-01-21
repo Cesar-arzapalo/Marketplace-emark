@@ -1,26 +1,5 @@
-// mat-form-field{
-//     margin: 20px;
-// }
+@import "../../../assets/styles/variables.scss";
 
-// .form{
-//     display: flex;
-//     justify-content: center;
-// }
-
-// .title{
-//     text-align: center;
-//     font-size: 40px;
-//     margin-top: 20px;
-// }
-// .btns{
-//     display: flex;
-//     justify-content:space-around ;
-//     margin-bottom: 20px;
-// }
-// .btn{
-//     border: 10px;
-//     background: rgb(189, 185, 185);
-// }
 
 .lista-productos{
     display: flex;
@@ -35,7 +14,7 @@
 }
 
 .catalogo-opciones{
-    background-color: rgb(255,0, 0);
+    background-color:$fondo;
     color: #fff;
     font-weight: bold;
     border-radius: 10px !important;
@@ -57,8 +36,8 @@
 .bordes-laterales{
     border-left: #fff;
     border-right: #fff;
-    border-top: #f00;
-    border-bottom: #f00;
+    border-top: $fondo;
+    border-bottom: $fondo;
     border-width: medium;
     border-style: solid;
     
@@ -70,9 +49,9 @@
 
 .borde-izquierdo{
     border-left: #fff;
-    border-right: #f00;
-    border-top: #f00;
-    border-bottom: #f00;
+    border-right: $fondo;
+    border-top: $fondo;
+    border-bottom: $fondo;
     border-width: medium;
     border-style: solid;
 }

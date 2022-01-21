@@ -1,9 +1,13 @@
+@import "../../../../assets/styles/variables.scss";
+
 .contenido{
+    background-color: $white-color;
+    box-shadow: $box-shadow;
     display: flex;
     flex-direction: column;
     justify-content: stretch;
 }
 .cuerpo-tipo-recepcion{
-    border: 1px red solid;
+    border: 1px $fondo solid;
     padding: 20px;
 }

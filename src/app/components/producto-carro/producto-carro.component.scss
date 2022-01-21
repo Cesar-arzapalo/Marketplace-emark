@@ -1,9 +1,12 @@
+@import "../../../assets/styles/variables.scss";
+
+
 .producto-carro{
     height: 60px;
     padding: 0 5px;
     background-color: #fff;
-    color: red !important;
-    border: solid red 1px;
+    color: $fondo !important;
+    border: solid $fondo 1px;
     font-size: 12px;
 }
 .centrado{
@@ -12,7 +15,7 @@
     justify-content: center;
 }
 a{
-    color: red !important;
+    color: $fondo !important;
     text-decoration: none;
 }
 
@@ -27,7 +30,7 @@ a:hover{
 }
 
 .close{
-    color:red;
+    color:$fondo;
 }
 
 
@@ -37,7 +40,7 @@ a:hover{
 }
 
 .operador{
-    background-color: red;
+    background-color: $fondo;
     text-decoration: none;
     border-radius: 5px;
     font-size: 10px;

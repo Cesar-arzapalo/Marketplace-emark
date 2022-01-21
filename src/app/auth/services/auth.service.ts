@@ -88,19 +88,23 @@ export class AuthService {
           .toString()
     )
   }
-
+  
   public cerrarSesion(data: Auth){
     this.auth = {
       pedido: data.pedido
     }
-    
-    localStorage.setItem('tkAuth',
-      CryptoJS.AES.encrypt(
-        JSON.stringify(this.auth),'eyJhbGciOiJIUzUxMiJ9')
-          .toString()
-    )
+    this.actualizarToken(this.auth);
   }
 
+  public vaciarCarro(data: Auth){
+    this.auth = {
+      user:data.user,         
+      token: data.token, 
+      pedido:  new Pedido(new Date(), [])
+    }
+    this.actualizarToken(this.auth);
+  }
+  
   public updatePassword = (email:string, oldPassword: string, newPassword: string) => {
     return this.login(email, oldPassword)
           .then( (resp =>{

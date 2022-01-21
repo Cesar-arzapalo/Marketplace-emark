@@ -7,6 +7,7 @@ import html2canvas from "html2canvas";
 import { PedidoService } from '../../../services/pedido.service';
 import { Mensaje } from '../../../models/mensaje.model';
 import { PedidoComprado } from '../../../models/pedido/state.model';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-comprobante',
@@ -16,10 +17,12 @@ import { PedidoComprado } from '../../../models/pedido/state.model';
 export class ComprobanteComponent implements OnInit {
   mensaje!: Mensaje;
   comprobante!: Comprobante;
+  comprobanteElectronico: any;
   monto: number = 0;
   pedidoCargado: boolean = false;
   constructor(private actRouter: ActivatedRoute, public router: Router,
-    private pedidoService:PedidoService, public correoService: CorreoService) {
+    private pedidoService:PedidoService, public correoService: CorreoService,
+    private authService: AuthService) {
     this.generarPedido(<string>this.actRouter.snapshot.params.id)!;
     
   }
@@ -30,10 +33,10 @@ export class ComprobanteComponent implements OnInit {
     
   generarPedido(id:string){
     this.pedidoService.obtenerPedido(id).subscribe(resp  =>{
-      console.log(resp.mensaje)      
       this.comprobante = new Comprobante(new Date(resp.mensaje.fechaEmision), resp.mensaje.productoSolicitados,resp.mensaje.comprador)
       this.monto=Comprobante.getMontoTotal(this.comprobante)
       this.pedidoCargado=true;
+      this.authService.vaciarCarro(this.authService.auth)
         this.mensaje= new Mensaje(`${this.comprobante.usuario!.apellidos}, ${this.comprobante.usuario!.nombres}`,"","Gracias por Comprar en EMARK - Comprobante Electronico",`https://e-mark.herokuapp.com${this.router.url}`)
     });
     
@@ -41,9 +44,9 @@ export class ComprobanteComponent implements OnInit {
 
   async crearComprobante(){
     
-    html2canvas(  <HTMLCanvasElement> document.querySelector("#comprobante")!).then((canvas:any) => {
-      this.comprobante = canvas.toDataURL();
-      this.realizarDescarga(this.comprobante)      
+    html2canvas(  <HTMLCanvasElement> document.querySelector("#comprobanteElectronico")!).then((canvas:any) => {
+      this.comprobanteElectronico = canvas.toDataURL();
+      this.realizarDescarga(this.comprobanteElectronico)      
     }).catch((err: any) =>{
       console.error(err.error)
       const Toast = Swal.mixin({
@@ -64,9 +67,9 @@ export class ComprobanteComponent implements OnInit {
     });
   }
 
-  realizarDescarga(comprobante: any){
+  realizarDescarga(comprobanteElectronico: any){
     var archivo = document.createElement('a')
-    archivo.href=comprobante;
+    archivo.href=comprobanteElectronico;
     archivo.download = "Comprobante Electronico.png"
     archivo.click();
   }

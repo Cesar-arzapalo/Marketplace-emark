@@ -1,3 +1,4 @@
+@import "../../../assets/styles/variables.scss";
 
 .carro{
     
@@ -16,7 +17,7 @@
 }
 
 .boton-carro:hover{
-    color:red!important;
+
     text-decoration: none!important;
 }
 
@@ -24,6 +25,10 @@
     border: none !important;
     width: 400px;
     background-color: transparent !important;
+    padding: 0 !important;
+    box-shadow: $box-shadow;
+    border-radius: 15px!important;
+    border: $fondo  2px solid;
 }
 .centrado-vertical{
     display: flex;
@@ -33,14 +38,14 @@
 
 .cabecera-dropdown{
     height: 40px;
-    background-color: red;
+    background-color: $fondo;
     color: #fff;
     font-weight: bold;
     padding: 0 8px;
 }
 
 .opciones-dropdown{
-    border: red solid 1px;
+    border: $fondo solid 1px;
     display: flex;
     flex-direction: row;
     background-color: #fff;
@@ -67,7 +72,7 @@
 
 
 .boton-opciones{
-    background-color: red;
+    background-color: $fondo;
     height: 40px;
     margin: 10px 0px;
     border-radius: 15px;

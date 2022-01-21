@@ -1,3 +1,4 @@
+@import "../../../assets/styles/variables.scss";
 .header {
 	width: 100%;
 	position: fixed;
@@ -5,8 +6,17 @@
 	top:0;
 	left:0;
 }
+a{
+	height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+img{
+	height: 90%;
+}
 .navbar-emark {
-	background-color: rgb(255, 0, 0)!important;
+	background-color: $fondo !important;
 	height: 60px;
 	width: 100%;
 }

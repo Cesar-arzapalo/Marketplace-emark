@@ -3,11 +3,11 @@
         (click)="actualizarMonto()"> <i class="fas fa-shopping-cart"></i> <i
             class="fas fa-angle-down espaciado-izquierdo"></i></a>
     <ul class="dropdown-menu dropdown-menu-dark dropdown-carro" aria-labelledby="dropdownMenuButton2" (click)="$event.stopPropagation()">
-        <li class="cabecera-dropdown centrado-vertical bordes-iniciales-redondeados"> Carro de compras Emark</li>
+        <li class="cabecera-dropdown centrado-vertical"> Carro de compras Emark</li>
         <li *ngFor="let producto of pedido.productos; let idx = index">
             <app-producto-carro [productoSolicitado]="producto" [indice]="idx" (emitirProductoCarro)="actualizarMonto()"></app-producto-carro>
         </li>
-        <li class="opciones-dropdown bordes-finales-redondeados row g-0">
+        <li class="opciones-dropdown row g-0">
             <div class="col centrado-vertical">
                 Monto Total: S/ {{montoTotal | number:'1.2-2'}}
             </div>

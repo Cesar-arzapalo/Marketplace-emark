@@ -7,7 +7,7 @@
     justify-content: center;
     text-align: center;
     align-content: center;
-    background: $rojo;
+    background: $fondo;
     color: $white-color;
   }
   
@@ -46,7 +46,7 @@
   }
   
   .ingreso {
-    background: $rojo;
+    background: $fondo;
   }
   
   .logo {
@@ -67,7 +67,7 @@
   .button {
     background: $white-color;
     border: none;
-    color: $rojo;
+    color: $fondo;
     font-size: $big-font-size;
     cursor: pointer;
     font-weight: bold;

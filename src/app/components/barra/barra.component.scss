@@ -1,6 +1,8 @@
+@import "../../../assets/styles/variables.scss";
+
 .barra{
     height: 50px;
-    background-color: red;
+    background-color: $fondo;
     display: flex;
     align-content: stretch;
 }
@@ -10,13 +12,14 @@
     align-items:center;
     text-decoration: none;
     color:#fff;
+    background-color: $fondo;
     font-weight: bold;
     font-size: 20px;
-    border: 1px red solid;
+    border: 1px $fondo solid;
 }
 
 .barra-option:hover{
-    background-color:red;
+    background-color:$fondo;
     color: #fff;
     opacity: 0.75;
     font-size: 24px;
@@ -30,11 +33,11 @@
 .opcion-no-seleccionada{
 
     background-color: #fff;
-    color: red;
+    color: $fondo;
 }
 
 .opcion-seleccionada{
 
-    background-color:red;
+    background-color:$fondo;
     color: #fff;
 }

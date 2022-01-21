@@ -1,3 +1,5 @@
+@import "../../../assets/styles/variables.scss";
+
 .venta {
   padding: 0px 20px;
   margin: 20px 0;
@@ -8,7 +10,9 @@
   margin: 20px 0;
 }
 .pedido-tabla{
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    box-shadow: $box-shadow;
+    border: none;
+    background-color: $white-color;
 }
 
 .titulo-venta {
@@ -42,9 +46,12 @@ button {
   /* justify-content: end; */
   text-align: center;
 }
-
+button{
+  background-color: $fondo !important;
+  border: none;
+}
 .cabecera-pedido {
-  background-color: red;
+  background-color: $fondo;
   color: #fff;
   height: 50px;
   font-size: 16px;
@@ -52,18 +59,20 @@ button {
 }
 
 .cuerpo-pedido {
-  border: red solid 1px;
+  border-top: $fondo solid 1px;
+  border-bottom: $fondo solid 1px;
 }
 
 .monto-pedido {
-  border: red solid 1px;
+  border-top: $fondo solid 1px;
+  border-bottom: $fondo solid 1px;
   height: 80px;
   color: #000;
   font-weight: bold;
 }
 
 .sin-pedido {
-  border: red solid 1px;
+  border: $fondo solid 2px;
   height: 400px;
   color: #000;
   font-weight: bold;
