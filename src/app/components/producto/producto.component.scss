@@ -5,7 +5,6 @@
     width: 300px;
     background-color: #fff;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
-    color: $text-primario;
 }
 
 .centrado{
@@ -67,14 +66,14 @@
     display: flex;
     align-items: center;
     height:30px ;
-    color: $text-primario;
+    color: $text-secundario;
     font-weight: bold;
 }
 
 .producto-nombre{
     display: flex;
     align-items: center;
-    color: $text-primario;
+    color: $text-secundario;
 }
 
 .producto{
